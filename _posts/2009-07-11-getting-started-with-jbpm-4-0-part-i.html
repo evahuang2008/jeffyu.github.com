@@ -1,0 +1,50 @@
+--- 
+layout: post
+title: Getting Started with jBPM 4.0 - (Part I )
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "3318396154872647471"
+  _searchme: "1"
+  _edit_last: "1"
+  _efficient_related_posts: a:6:{i:0;a:4:{s:2:"ID";s:3:"243";s:10:"post_title";s:38:"jBPM 4.0 restful service introduction.";s:7:"matches";s:1:"1";s:9:"permalink";s:74:"http://jeff.familyyu.net/2009/08/08/jbpm-4-0-restful-service-introduction/";}i:1;a:4:{s:2:"ID";s:3:"239";s:10:"post_title";s:21:"Updates on JBoss ESB.";s:7:"matches";s:1:"1";s:9:"permalink";s:57:"http://jeff.familyyu.net/2009/07/22/updates-on-jboss-esb/";}i:2;a:4:{s:2:"ID";s:3:"236";s:10:"post_title";s:39:"Getting Started with jBPM 4.0 (Part IV)";s:7:"matches";s:1:"1";s:9:"permalink";s:74:"http://jeff.familyyu.net/2009/07/19/getting-started-with-jbpm-4-0-part-iv/";}i:3;a:4:{s:2:"ID";s:3:"234";s:10:"post_title";s:40:"Getting Started with jBPM 4.0 (Part III)";s:7:"matches";s:1:"1";s:9:"permalink";s:75:"http://jeff.familyyu.net/2009/07/12/getting-started-with-jbpm-4-0-part-iii/";}i:4;a:4:{s:2:"ID";s:3:"233";s:10:"post_title";s:39:"Getting Started with jBPM 4.0 (Part II)";s:7:"matches";s:1:"1";s:9:"permalink";s:74:"http://jeff.familyyu.net/2009/07/12/getting-started-with-jbpm-4-0-part-ii/";}i:5;a:4:{s:2:"ID";s:3:"229";s:10:"post_title";s:27:"jBPM4.0 framework exploring";s:7:"matches";s:1:"1";s:9:"permalink";s:64:"http://jeff.familyyu.net/2009/06/29/jbpm4-0-framework-exploring/";}}
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+  _relation_threshold: "1"
+tags: 
+- BPM
+- JBoss
+- jBPM
+type: post
+status: publish
+---
+<a href="http://processdevelopments.blogspot.com/2009/07/jbpm-40-is-out.html">jBPM 4.0 was out</a> yesterday, so I played it with a simple example, also include installing the eclipse plugin, and see the jbpm console, which I haven't tried them out before, to get a feeling about them. Below are the steps that I did, hopefully you find it helpful for you to get started.
+
+<span style="text-decoration: underline;">Install jBPM and JBoss</span>
+
+1. Download the <a href="http://sourceforge.net/projects/jbpm/files/a%29%20jBPM%204/jbpm-4.0.zip/download">jbpm 4.0 distribution</a>.
+2. Extract it into your local directory, here mine is: /local/deploy
+3. Go to jbpm-4.0/jboss.
+4. Added the build.properties into ${user.home}/.jbpm4 directory if you want to update the default properties in the ant script. (below is what I did, I used the jboss-5.0.1.GA, and I already had the zip ball in the /local/softwares directory)
+<pre>database=hsqldbjboss.version=5.0.1.GAjbpm.parent.dir=/local/deployjboss.distro.dir=/local/softwares</pre>
+You can refer to <a href="http://www.jboss.org/community/wiki/jBPM4BuildingfromSource">this wiki entry</a> for detail.
+5. run following command to install jboss &amp; jbpm.
+<pre>ant install.jbossant install.jbpm.into.jboss</pre>
+Now, you go to the jbpm-4.0/jboss-5.0.1.GA, run:
+bin/run.sh -c default.
+
+It should start the jbpm server properly, later then we need to populate the schema &amp; initialized sqls.
+
+<span style="text-decoration: underline;">Import jBPM db schema and identity sql</span>
+
+1. Go to jBPM-4.0/db, run following command to populate the schema &amp; sql.
+<pre>ant create.jbpm.schemaant load.example.identities</pre>
+Now, you can go to http://localhost:8080/jbpm-console, use the 'alex/password' as the username and password combination, you should be able to log in the jbpm console.
+
+<span style="text-decoration: underline;">Install the jBPM eclipse plugin</span>
+
+I won't described the steps for its installation, as it was very well documented in the <a href="http://docs.jboss.com/jbpm/v4.0/userguide/html_single/#graphicalprocessdesigner">user guide</a>.
+<span style="color: #ff0000;">Note, it was based on the eclipse 3.5 jee distribution.</span>
+
+In the next entry, we will try to build a simple process by using the Eclipse GUI.

@@ -1,0 +1,17 @@
+--- 
+layout: post
+title: Implementing a JCA Resource Adapter.
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "8940854836059819372"
+  _searchme: "1"
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+tags: 
+- Java
+type: post
+status: publish
+---
+JCA(Java Connector Architecture) is a bridge that connect Exteranl System (i.e EIS) to App Server, so that they can communicate.<br />We can split the connection into two categories.<br />1. Outbound connection.<br />This is App Server initialize the request to EIS. The flow is: App Server -&gt; RA (resource Adapter) -&gt; EIS.<br />2. Inbound connection.<br />This is EIS initialize the request to App Server. The flow is: EIS -&gt; RA -&gt; App Server.<br />One thing needs to say, this is also called Message-Inflow support, (a.k.a MDB support), it is introduced in the JCA1.5. Here it considers the MDBean as an endpoint that accept the incoming Message which send from the EIS. The RA needs to establish a listener, whose responsibility is to accept Message from EIS, and then convert the Message to the MDBean acceptable Object if any, deliver the received Message to the MDBean.

@@ -1,0 +1,31 @@
+--- 
+layout: post
+title: Install Mplayer in the Ubuntu7.10
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "851315729365801701"
+  _searchme: "1"
+  _edit_last: "1"
+  _efficient_related_posts: a:7:{i:0;a:4:{s:2:"ID";s:3:"189";s:10:"post_title";s:54:"This is the way to install software, are you using it?";s:7:"matches";s:1:"1";s:9:"permalink";s:89:"http://jeff.familyyu.net/2008/03/24/this-is-the-way-to-install-software-are-you-using-it/";}i:1;a:4:{s:2:"ID";s:3:"188";s:10:"post_title";s:22:"Ubuntu Tips - Part one";s:7:"matches";s:1:"1";s:9:"permalink";s:57:"http://jeff.familyyu.net/2008/03/20/ubuntu-tips-part-one/";}i:2;a:4:{s:2:"ID";s:3:"187";s:10:"post_title";s:27:"Make voice input correctly.";s:7:"matches";s:1:"1";s:9:"permalink";s:63:"http://jeff.familyyu.net/2008/03/17/make-voice-input-correctly/";}i:3;a:4:{s:2:"ID";s:3:"186";s:10:"post_title";s:19:"Log in QQ in Ubuntu";s:7:"matches";s:1:"1";s:9:"permalink";s:56:"http://jeff.familyyu.net/2008/03/17/log-in-qq-in-ubuntu/";}i:4;a:4:{s:2:"ID";s:3:"185";s:10:"post_title";s:23:"Install amule in Ubuntu";s:7:"matches";s:1:"1";s:9:"permalink";s:60:"http://jeff.familyyu.net/2008/03/16/install-amule-in-ubuntu/";}i:5;a:4:{s:2:"ID";s:3:"184";s:10:"post_title";s:52:"Multiple sounds can exist at same time in Ubuntu7.10";s:7:"matches";s:1:"1";s:9:"permalink";s:89:"http://jeff.familyyu.net/2008/03/15/multiple-sounds-can-exist-at-same-time-in-ubuntu7-10/";}i:6;a:4:{s:2:"ID";s:3:"183";s:10:"post_title";s:38:"Make XMMS show chinese font correctly.";s:7:"matches";s:1:"1";s:9:"permalink";s:74:"http://jeff.familyyu.net/2008/03/15/make-xmms-show-chinese-font-correctly/";}}
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+  _relation_threshold: "1"
+tags: 
+- OS
+- Ubuntu
+type: post
+status: publish
+---
+1. sudo apt-get install mplayer mplayer-fonts mozilla-mplayer
+2. Download the win32codec from <a href="http://www.mplayerhq.hu/design7/dload.html">http://www.mplayerhq.hu/design7/dload.html</a>, Choose the "Binary Codec Packages" title, the file name is sort of "linux x86 ...".
+3. Extract the win32codec from the package in the /usr/lib/win32. (create it if it doesn't exist).
+4. Start the Mplayer, it should be all set.
+
+Q: Can play the sound ok, but without having any images.
+A: running: sudo apt-get install libstdc++5 in the Shell.
+
+Reference:
+1. <a href="http://wiki.ubuntu.org.cn/%E5%AE%89%E8%A3%85MPlayer">Install MPlayer</a>
+2. <a href="http://forum.ubuntu.org.cn/viewtopic.php?t=108805">http://forum.ubuntu.org.cn/viewtopic.php?t=108805</a>

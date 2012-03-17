@@ -1,0 +1,39 @@
+--- 
+layout: post
+title: "Exploring ODE Part I: Bpel Compiler and its internal model."
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "6903238706216395634"
+  _searchme: "1"
+  _edit_last: "1"
+  _efficient_related_posts: "a:7:{i:0;a:4:{s:2:\"ID\";s:3:\"270\";s:10:\"post_title\";s:38:\"Exploring ODE Part II: JACOB Framework\";s:7:\"matches\";s:1:\"3\";s:9:\"permalink\";s:74:\"http://jeff.familyyu.net/2010/01/27/exploring-ode-part-ii-jacob-framework/\";}i:1;a:4:{s:2:\"ID\";s:3:\"276\";s:10:\"post_title\";s:63:\"Exploring ODE part V: implemenation of scheduler-simple module.\";s:7:\"matches\";s:1:\"2\";s:9:\"permalink\";s:98:\"http://jeff.familyyu.net/2010/07/26/exploring-ode-part-v-implemenation-of-scheduler-simple-module/\";}i:2;a:4:{s:2:\"ID\";s:3:\"273\";s:10:\"post_title\";s:37:\"Exploring ODE Part IV: BpelServer API\";s:7:\"matches\";s:1:\"2\";s:9:\"permalink\";s:73:\"http://jeff.familyyu.net/2010/02/21/exploring-ode-part-iv-bpelserver-api/\";}i:3;a:4:{s:2:\"ID\";s:3:\"271\";s:10:\"post_title\";s:61:\"Exploring ODE Part III: architecture and modules introduction\";s:7:\"matches\";s:1:\"2\";s:9:\"permalink\";s:97:\"http://jeff.familyyu.net/2010/01/30/exploring-ode-part-iii-architecture-and-modules-introduction/\";}i:4;a:4:{s:2:\"ID\";s:3:\"699\";s:10:\"post_title\";s:44:\"Upgrading Hibernate 3.3.2 to Hibernate 4.0.0\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:81:\"http://jeff.familyyu.net/2011/09/08/upgrading-hibernate-3-3-2-to-hibernate-4-0-0/\";}i:5;a:4:{s:2:\"ID\";s:3:\"278\";s:10:\"post_title\";s:47:\"Getting/Using services deployed in JBoss AS 5.x\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:83:\"http://jeff.familyyu.net/2010/09/28/gettingusing-services-deployed-in-jboss-as-5-x/\";}i:6;a:4:{s:2:\"ID\";s:3:\"255\";s:10:\"post_title\";s:33:\"PartnerLink,PartnerLinkType\xE8\xAF\xA6\xE8\xA7\xA3\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:81:\"http://jeff.familyyu.net/2009/09/28/partnerlinkpartnerlinktype%e8%af%a6%e8%a7%a3/\";}}"
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+  _relation_threshold: "1"
+tags: 
+- BPEL
+- BPM
+- Java
+- JBoss
+- ODE
+- RiftSaw
+type: post
+status: publish
+---
+In the <a href="http://ode.apache.org/">Apache ODE</a>, it has a bpelc, bpelc.bat script for you to compile the bpel file into ODE specific format file. We can use this tool to verify whether the bpel file's semantic is correct or not.
+
+So in this blog entry, we will take a closer look at the architecture of this tool, (also known as <a href="http://svn.apache.org/repos/asf/ode/trunk/bpel-compiler/">bpel-compiler</a> module). The <a href="http://svn.apache.org/repos/asf/ode/trunk/tools/">ode-tool</a> module is just a wrapper for <a href="http://svn.apache.org/repos/asf/ode/trunk/bpel-compiler/">bpel-compiler</a> module.
+
+Firstly, lets look at the bpel object model for BPEL file, it is known as 'bom' (bpel object model, I guess) in the source file. It put all of bpel object model into this package, and its base class is <span style="font-weight: bold;">BpelObject</span>, this base class extends the <span style="font-weight: bold;">sourceLocation</span> which is for keeping detail info of original bpel file. some known subclasses are: IfActivity, PartnerLink, PartnerLinkType, SequenceActivity etc. These subclasses share one feature, their constructor parameter type is Element.
+
+Second concept here is called <span style="font-weight: bold;">ActivityGenerator</span>, as name implied, it is taking care of generating the Activities, like IfActivity, InvokeActivity, SequenceActivity.
+
+The other concept is called <span style="font-weight: bold;">OBase</span>, this class is a base class for compiled bpel object, the known subclasses are: OAssign, OInvoke, which both extend from <span style="font-weight: bold;">OActivity</span>, others are like: OPartnerlink, OProperty..
+
+So in the bpel-compiler module, the work procedure is convert the bpel file into BOM, and then using AcitivityGenerator to convert them into OBase (ODE inner Object model).
+
+If you want to look at the source code, you can start with <span style="font-weight: bold;">BpelC</span> class, the method for it is called compile(File file), in this method, you would find it uses the <span style="font-weight: bold;">BpelObjectFactory</span> to convert the xml file into BOM, and then get the correct <span style="font-weight: bold;">BpelCompiler</span> implementation to convert the BOM object to compiled object representation. (objects extends OBase class).
+
+In the bpel-compiler module's test part, we are using the bpel files that are put in the <a href="http://svn.apache.org/repos/asf/ode/trunk/bpel-scripts/">bpel-scripts</a> module, to do the unit test. If you want to learn about the bpel's activity, this is also a good resource.

@@ -1,0 +1,84 @@
+--- 
+layout: post
+title: Getting Started with jBPM 4.0 (Part IV)
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "1846988186397747820"
+  _searchme: "1"
+  _edit_last: "1"
+  _efficient_related_posts: a:6:{i:0;a:4:{s:2:"ID";s:3:"243";s:10:"post_title";s:38:"jBPM 4.0 restful service introduction.";s:7:"matches";s:1:"1";s:9:"permalink";s:74:"http://jeff.familyyu.net/2009/08/08/jbpm-4-0-restful-service-introduction/";}i:1;a:4:{s:2:"ID";s:3:"239";s:10:"post_title";s:21:"Updates on JBoss ESB.";s:7:"matches";s:1:"1";s:9:"permalink";s:57:"http://jeff.familyyu.net/2009/07/22/updates-on-jboss-esb/";}i:2;a:4:{s:2:"ID";s:3:"234";s:10:"post_title";s:40:"Getting Started with jBPM 4.0 (Part III)";s:7:"matches";s:1:"1";s:9:"permalink";s:75:"http://jeff.familyyu.net/2009/07/12/getting-started-with-jbpm-4-0-part-iii/";}i:3;a:4:{s:2:"ID";s:3:"233";s:10:"post_title";s:39:"Getting Started with jBPM 4.0 (Part II)";s:7:"matches";s:1:"1";s:9:"permalink";s:74:"http://jeff.familyyu.net/2009/07/12/getting-started-with-jbpm-4-0-part-ii/";}i:4;a:4:{s:2:"ID";s:3:"232";s:10:"post_title";s:41:"Getting Started with jBPM 4.0 - (Part I )";s:7:"matches";s:1:"1";s:9:"permalink";s:73:"http://jeff.familyyu.net/2009/07/11/getting-started-with-jbpm-4-0-part-i/";}i:5;a:4:{s:2:"ID";s:3:"229";s:10:"post_title";s:27:"jBPM4.0 framework exploring";s:7:"matches";s:1:"1";s:9:"permalink";s:64:"http://jeff.familyyu.net/2009/06/29/jbpm4-0-framework-exploring/";}}
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+  _syntaxhighlighter_encoded: "1"
+  _relation_threshold: "1"
+tags: 
+- BPM
+- Java
+- JBoss
+- jBPM
+type: post
+status: publish
+---
+As said in <a href="http://jeffyuchang.blogspot.com/2009/07/getting-started-with-jbpm-40-part-iii.html">part III</a>, we will revise our example, to create the task form, and then use the jbpm console to take or complete the task.
+
+Firstly, because there was a minor issue related to this feature, which was reported <a href="https://jira.jboss.org/jira/browse/JBPM-2423">here in the jBPM jira</a>, we will use the 'form' attribute in the jpdl file.
+
+1.<span style="text-decoration: underline;">Add the task form template</span>
+Here, we will create a freemarker template file, named review.ftl. the files content is as following:
+
+[xml]
+&lt;html&gt;
+&lt;body&gt;
+&lt;h2&gt;Please review the request
+&lt;form action=&quot;${form.action}&quot; method=&quot;POST&quot; enctype=&quot;multipart/form-data&quot;&gt;
+&lt;#list outcome.values as transition&gt;
+&lt;input type=&quot;submit&quot; name=&quot;outcome&quot; value=&quot;${transition}&quot;&gt;
+&lt;/#list&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+[/xml]
+
+2.<span style="text-decoration: underline;">Add the form attribute in task node</span>
+As we said earlier, due to the <a href="https://jira.jboss.org/jira/browse/JBPM-2423">JBPM-2423 issue</a> in jBPM 4.0 GA, we need to update our jpdl to associate our task form template. the updated section is as following.
+<pre class="brush:xml">&lt;task assignee="alex" g="277,235,92,52" name="review" <span style="color: #ff0000;">form="review.ftl"</span>&gt;
+&lt;transition g="-73,-25" name="approved" to="audit"/&gt;
+&lt;/task&gt;</pre>
+3. <span style="text-decoration: underline;"> Update the build.xml, to include the .ftl file in .bar archive</span>
+The last step would be to update our build.xml, to include the ftl template file, and also include the png file for the diagram show usage in our jbpm console.
+The updated bar package built script is:
+
+[xml]
+&lt;target name=&quot;bar&quot; depends=&quot;init&quot;&gt;
+&lt;jar destfile=&quot;${basedir}/target/helloworld.bar&quot;&gt;
+  &lt;fileset dir=&quot;${basedir}/src/main/resources&quot;&gt;
+        &lt;include name=&quot;*.jpdl.xml&quot; /&gt;
+        &lt;include name=&quot;*.ftl&quot; /&gt;
+       &lt;include name=&quot;*.png&quot; /&gt;
+&lt;/fileset&gt;
+   &lt;/jar&gt;
+&lt;/target&gt;
+[/xml]
+
+That is it, now you can re-deploy it into the jBPM server, <a href="http://jeffyuchang.blogspot.com/2009/07/getting-started-with-jbpm-40-part-iii.html">like we said in the part3</a>.
+
+<span style="text-decoration: underline;">Task Form in jBPM console</span>
+well, after we started the process instance, let's see the diagram and the task form in its console UI.
+
+On the process instance tab, click the 'diagram' button in the instance details page, you would see page as following picture.
+<a href="http://jeff.familyyu.net/wp-content/uploads/2011/01/diagram1.gif"><img src="http://jeff.familyyu.net/wp-content/uploads/2011/01/diagram1.gif?w=300" border="0" alt="" /></a>
+
+Go to the task list -&gt; Personal tasks, you would see there is a task, the name is called "review", select the task and click the 'view' button, it would pop up the task form interface as following picture.
+<a href="http://jeff.familyyu.net/wp-content/uploads/2011/01/taskform.gif"><img src="http://jeff.familyyu.net/wp-content/uploads/2011/01/taskform.gif?w=300" border="0" alt="" /></a>
+
+Once you click the 'approved' button, the task is completed, and the whole process goes to the 'audit' state as we've defined in the jpdl file.
+
+So, that is all for the task form example. If you want to know more about the template, like syntax, you can refer to the <a href="http://freemarker.sourceforge.net/">freemarker webiste</a>.
+
+One thing interesting is that there is a console-server, which is the jbpm console talk to, the console server is responsible for exposing the jBPM service as a RESTful services. You can go to "http://localhost:8080/gwt-console-server/rs/server/resources" to see all available resources. we won't go detail in this entry, this is an interesting topic that we will cover in the future blog entry.
+
+<span style="text-decoration: underline;">Summary</span>
+
+Until now, this 《Getting Started with jBPM 4.0》series is finished, you can download the <a href="http://people.apache.org/%7Ejeffyu/articles/artifacts/jbpm-helloworld.tar">jbpm-helloworld example as a tar ball from here</a>. Its aim is to help you get started, if you want to know more about jBPM 4.0, the <a href="http://docs.jboss.com/jbpm/v4.0/userguide/html_single/">userguide</a> and <a href="http://docs.jboss.com/jbpm/v4.0/devguide/html_single/">dev guide</a> are very good documents, and you also shouldn't miss <a href="http://www.jboss.org/index.html?module=bb&amp;op=viewforum&amp;f=217">the jbpm user forum</a>.

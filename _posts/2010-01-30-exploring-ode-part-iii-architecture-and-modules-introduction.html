@@ -1,0 +1,68 @@
+--- 
+layout: post
+title: "Exploring ODE Part III: architecture and modules introduction"
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "2131173250257739620"
+  _searchme: "1"
+  _edit_last: "1"
+  _efficient_related_posts: "a:6:{i:0;a:4:{s:2:\"ID\";s:3:\"276\";s:10:\"post_title\";s:63:\"Exploring ODE part V: implemenation of scheduler-simple module.\";s:7:\"matches\";s:1:\"2\";s:9:\"permalink\";s:98:\"http://jeff.familyyu.net/2010/07/26/exploring-ode-part-v-implemenation-of-scheduler-simple-module/\";}i:1;a:4:{s:2:\"ID\";s:3:\"273\";s:10:\"post_title\";s:37:\"Exploring ODE Part IV: BpelServer API\";s:7:\"matches\";s:1:\"2\";s:9:\"permalink\";s:73:\"http://jeff.familyyu.net/2010/02/21/exploring-ode-part-iv-bpelserver-api/\";}i:2;a:4:{s:2:\"ID\";s:3:\"270\";s:10:\"post_title\";s:38:\"Exploring ODE Part II: JACOB Framework\";s:7:\"matches\";s:1:\"2\";s:9:\"permalink\";s:74:\"http://jeff.familyyu.net/2010/01/27/exploring-ode-part-ii-jacob-framework/\";}i:3;a:4:{s:2:\"ID\";s:3:\"269\";s:10:\"post_title\";s:59:\"Exploring ODE Part I: Bpel Compiler and its internal model.\";s:7:\"matches\";s:1:\"2\";s:9:\"permalink\";s:94:\"http://jeff.familyyu.net/2010/01/26/exploring-ode-part-i-bpel-compiler-and-its-internal-model/\";}i:4;a:4:{s:2:\"ID\";s:3:\"699\";s:10:\"post_title\";s:44:\"Upgrading Hibernate 3.3.2 to Hibernate 4.0.0\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:81:\"http://jeff.familyyu.net/2011/09/08/upgrading-hibernate-3-3-2-to-hibernate-4-0-0/\";}i:5;a:4:{s:2:\"ID\";s:3:\"278\";s:10:\"post_title\";s:47:\"Getting/Using services deployed in JBoss AS 5.x\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:83:\"http://jeff.familyyu.net/2010/09/28/gettingusing-services-deployed-in-jboss-as-5-x/\";}}"
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+  _relation_threshold: "1"
+tags: 
+- BPM
+- Java
+- ODE
+- RiftSaw
+type: post
+status: publish
+---
+In this blog entry, we will continue to explore the ODE source code. Typically, we should see the ODE's architecture in our first part of this series, but here I put it in the third part, as at that time, I was just trying to write a blog entry about the ODE's inner model about bpel file, didn't thought I will write this as a series.
+
+Anyway, lets see the ODE's architecture diagram, which I copied it from the <a href="http://ode.apache.org/architectural-overview.html">ODE's architecture wiki page</a>.
+<a href="http://jeff.familyyu.net/wp-content/uploads/2011/01/odearchitecture1.png"><img src="http://jeff.familyyu.net/wp-content/uploads/2011/01/odearchitecture1.png?w=300" border="0" alt="" /></a>
+On <a href="http://jeff.familyyu.net/2010/01/exploring-apache-ode-source-code-part-i.html">our first part</a>, we look at the bpel compiler module, and we look at the JACOB framework on <a href="http://jeff.familyyu.net/2010/01/exploring-apache-ode-source-code-part.html">our second part</a>.
+
+In this part, we will try to make an introduction to ODE's modules:
+
+<span style="text-decoration: underline;"> ODE core modules</span>
+1.bpel-api: It contains the api definition for ODE, some important packages are: <span style="font-weight: bold;">
+</span>
+<ul>
+	<li>org.apache.ode.bpel.iapi: this is for integration interfaces, like Axis2 module will implement it.</li>
+	<li>org.apache.ode.bpel.rapi: these interfaces are for runtime api that are implemented in the bpel-runtime module.</li>
+	<li>org.apache.ode.bpel.pmapi: this is for the process management.</li>
+	<li>org.apache.ode.bpel.evt: this is for the event.</li>
+</ul>
+2. bpel-runtimes: this module takes care of implementing the Bpel's Activities, like INVOKE, REPLY, WAIT by extending the JacobRunnable Object, also it is the place that includes the internal model for compiled Bpel file, and Channel definition. You would notice that it has v1 and v2 packages, thats for ODE 1.x and ODE 2.x respectively.
+3. bpel-dao: this module is the API for DAO layer, currently, it doesn't include the DAO API for process store.
+4. dao-jpa: currently it is the openjpa implementation for DAO.
+5. dao-jpa-db: This is the DDL script for openjpa's impl.
+6. dao-hibernate, dao-hibernate-db: these two are the Hibernate's impl for DAO, and its DDL scripts.
+7. bpel-schemas: this is module that use xmlbeans to generate Java objects from xsd schemas, they are: deploymentDescriptor, (dd.xsd), pmapi.xsd (Process Management API), schedules.xsd, context.xsd.
+8. bpel-scripts: this module is having those bpel files, it is used in bpel-compiler's test case.
+9. bpel-compiler: this module is to convert the bpel file into ODE internal model for compiled bpel file.
+10. il-common: this module is the common integration layer.
+11. scheduler-simple: this module is the implementation of scheduler service.
+12. bpel-store: this is the module takes charge of storing process from the filesystem, the artifact includes deploy.xml, .bpel, wsdl artifacts.
+13. engine: this is the ode engine that uses the runtimes, dao, scheduler services.
+14. bpel-ql: bpel query language.
+
+<span style="text-decoration: underline;">JACOB framework module</span>
+1. jacob-ap
+2. jacob
+
+<span style="text-decoration: underline;">Integration modules:</span>
+1.<span style="text-decoration: underline;">axis2 integration:</span> axis2, axis2-war
+2.<span style="text-decoration: underline;">jca integration:</span> bpel-api-jca, bpel-connector, jca-ra, jca-server
+3.<span style="text-decoration: underline;">jbi integration:</span> jbi
+4.<span style="text-decoration: underline;">extension:</span> extensions
+
+<span style="text-decoration: underline;">some leftover modules are:</span>
+1. tools: this is for the bpelc, sendsoap command line.
+2. utils: utils for ODE project.
+3. tasks: this is tasks for buildr tool.
+4. distro: this is the module for building distro.

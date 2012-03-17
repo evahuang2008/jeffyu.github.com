@@ -1,0 +1,18 @@
+--- 
+layout: post
+title: Write your own ClassLoader
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "4806088428519098022"
+  _searchme: "1"
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+tags: 
+- Java
+- Thoughts
+type: post
+status: publish
+---
+In general, classLoader is using the parent-first algorithm, which means if you want to load a Class, it will find the parent ClassLoader (it doesn't mean it is parent-class), if the parent ClassLoader doesn't find the specified Class, and then it tries to load class in the child classLoader.<br />So when you need to write your own ClassLoader? if you want to implement child-first classloader algorithm, then you need to write. A typical scenario is the Application Server that you are using is using older third party jar than you need for your APP.<br /><br />Two links about custom classloader:<br />1. <a href="http://www.javaworld.com/javaworld/javaqa/2003-06/01-qa-0606-load.html">Find a way out of the ClassLoader maze</a><br /><br />2. <a href="http://www.javaworld.com/javaworld/javaqa/2003-03/01-qa-0314-forname.html">Get a load of that name</a>!

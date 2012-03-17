@@ -1,0 +1,14 @@
+--- 
+layout: post
+title: !binary |
+  6YeN5p6E5p2h5Lu25Yik5pat6K+t5Y+l
+
+published: true
+meta: 
+  spaces_a43755b404d273dfcedbd14ccb4f51ab_permalink: http://cid-04001c604af3f011.users.api.live.net/Users(288261576051650577)/Blogs('4001C604AF3F011!102')/Entries('4001C604AF3F011!109')?authkey=X13wC75MXT0%24
+tags: 
+- Java
+type: post
+status: publish
+---
+<div id="msgcns!4001C604AF3F011!109" class="bvMsg"><p>Martin fowler在《重构》书中提到到当你碰到一系列的条件判断语句或者switch语句的时候，你应该用多态来重构它，但是有些情况是不能这样解决的。比如看下面一段代码：<br /><br />String result = null ;<br />if ( code == 1 )<br />     result = &quot;code1&quot; ;<br />else if (code ==  2 )<br />     result = &quot;code2&quot; ;<br />else if ....<br /><br />那么，当碰到这种情况的时候，（因为我个人对一系列的if ...else if .....else if ....或者swith语句可以说是非常的厌恶），我就先用一个Map来重构.<br /><br />static &#123;<br />   Map configMap = new HashMap() ;<br />   configMap.put(&quot;1&quot;,&quot;code1&quot;);<br />   configMap.put(&quot;2&quot;,&quot;code2&quot;);<br />&#125;</p> <p>那么，如果要为了以后更好的扩展和不改动代码的话，就把这些值放入xml的配置文件中，类似下面:</p> <p>&lt;entry key=&quot;1&quot; value=&quot;code1&quot; /&gt;<br />&lt;entry key=&quot;2&quot; value=&quot;code2&quot; /&gt;<br />........</p></div>

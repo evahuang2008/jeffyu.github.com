@@ -1,0 +1,18 @@
+--- 
+layout: post
+title: Integration Specifiations - JBI spec
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "2539294285833758353"
+  _searchme: "1"
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+tags: 
+- Java
+- SOA
+type: post
+status: publish
+---
+As I said in the last entry, it has drawback in the JCA spec for Enterprise integration, besides, we can not put the JCA in the Message Oriented Middleware category, which JBI, JMS were in.<br /><br />Ok, today I am talking about the JBI spec, firstly it stands for Java Buisiness Integration, and it is a way to combine all the existing services. In the JBI Spec, we are talking about nothing but service, and the Message is the unit that we are exchanging.<br /><br />JBI as a container spec, its content can split into two category.<br />1. Runtime<br /><ul><li>   1) Normalized Message</li><li>   2) Normalized Message Router</li><li>   3) Component</li><li>       3.1 Binding Component -&gt; which connects to the outside endpoint</li><li>       3.2 Service Engine  -&gt; which locates in the ESB itself.</li><li>   4) DeliveryChannel</li><li>   5) Message Exchange Pattern</li></ul>2. Management<br /><ul><li> 1) Packaging</li><li>2) Component installation</li><li>3) Service deployment.</li><li>4) Monitor</li></ul>We can see that the management functionality is to help the runtime. The primary function of runtime is to route message from one component to another. Messages are delivered in a Normalized Message, which was described in WSDL2.0, and the Normalized Message Router are in charge of routing, you also can use servicemix-eip component or <a href="http://activemq.apache.org/camel">Apache Camel</a> to help you build more complicated routing.<br /><br />JBI environment is consist of components, it makes no sense if there are no components. component can divide into two category in terms of logical functionality. One is Binding Component, which we can see as a bridge to connect the outside service. The other is the Service Enginee that located in its inner ESB.<br /><br />Once we have the Router, Component. we also introduce a channel, which called Delivery Channel in the JBI spec for communicating between Normalized Message Router and Components.<br /><br />At last, seems there are many kinds of message exchange categories, such as One-Way, Request-Response etc, we introduced a Message Exchange Pattern concept to represent this.<br /><br />Well, for the JBI 1.0, I think pros in it is: Normalized Message, Normalized Message Router. And things not good are: Component specific API, not easy to write a SU, SA..<br /><br />PS: Freeman and I wrote a presentation about Apache ServiceMix, which is JBI 1.0 compliant. you can download from <a href="http://jeff.yuchang.googlepages.com/servicemix.pdf">here</a>.

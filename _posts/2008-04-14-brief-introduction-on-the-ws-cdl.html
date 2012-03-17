@@ -1,0 +1,64 @@
+--- 
+layout: post
+title: Brief Introduction on the WS-CDL
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "3624073728468169240"
+  _searchme: "1"
+  _edit_last: "1"
+  _efficient_related_posts: a:2:{i:0;a:4:{s:2:"ID";s:3:"214";s:10:"post_title";s:20:"Conversation Pattern";s:7:"matches";s:1:"1";s:9:"permalink";s:57:"http://jeff.familyyu.net/2008/08/11/conversation-pattern/";}i:1;a:4:{s:2:"ID";s:3:"196";s:10:"post_title";s:16:"Links on WS-CDL.";s:7:"matches";s:1:"1";s:9:"permalink";s:52:"http://jeff.familyyu.net/2008/04/07/links-on-ws-cdl/";}}
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+  _relation_threshold: "1"
+tags: 
+- SOA
+- WS-CDL
+type: post
+status: publish
+---
+Because of the work's need, I need to work on the integration between the <a href="http://pi4soa.wiki.sourceforge.net/">WS-CDL Tool</a> and <a href="http://www.jboss.org/jbossesb">JBoss ESB</a>, and here comes the chance that need to take a look at the WS-CDL specification.
+
+Why the WS-CDL specification exists? what is it for? IMHO, now we have the WSDL as a contract to define the service in a language-independent way.  we can consider the "interface" as a contract definition in the JAVA world. But we don't have any thing to define the collaboration contract among multiple participants yet. Some people might say the UML Sequence diagram is a way to document it, but it lacks of the data description which has been used in the exchanges in the collaboration.
+
+With the WS-CDL spec and its according tool, it can help us to design a system from top-down approach, well, it is sort of reminding me the era of MDA(Model Driven Architecture), personally, I am not a fan of MDA, that includes a lot of code generation. To some extent, WS-CDL is belong to the MDA, but as I said before, WS-CDL just defines the contract that multiple participants are working, it is not trying to describe everything in detail, so that you can build the whole system with one "Generate Code" click.
+
+WS-CDL is mainly used for the Business Analyst. With current tools support, it can generate to WS-BPEL or Java skeleton code.
+
+So, back to the WS-CDL specification itself, what is it composed of?
+
+1. Collaborating Participants
+<ul>
+	<li> 1.1 RoleType   -- It defines the role, as the minimum unit for participants.</li>
+	<li> 1.2 RelationshipType -- It defines the relationship in roles.</li>
+	<li> 1.3 ParticipantType -- It is consist of one or multiple roles.</li>
+	<li> 1.4 ChannelType -- How and where participants collaborate.</li>
+</ul>
+2. Information Driven Collaborations
+<ul>
+	<li> 2.1 InformationType -- described the type of information used, simple wrapper for xsd.</li>
+	<li> 2.2 Variable</li>
+	<li> 2.3 Expressions</li>
+	<li> 2.4 Token and TokenLocator. (Tokens differ from variables in that variables contain values which MAY be populated as the result of actions or events within a choreography life-line whereas tokens contain information that define the piece of the data that is relevant.)</li>
+	<li> 2.5 WorkUnit</li>
+	<li> 2.6 Choreography</li>
+	<li> 2.7 Choreography Life-line</li>
+	<li> 2.8 Choreography Exception Handling</li>
+	<li> 2.9 Choreography Finalization</li>
+</ul>
+3. Activities
+
+3.1 Ordering Structures
+<ul>
+	<li> 3.1.1 Sequence</li>
+	<li> 3.1.2 Parallel</li>
+	<li> 3.1.3 Choice</li>
+</ul>
+3.2 Interacting
+<ul>
+	<li> 3.2.1 Interaction Based Information Alignment.</li>
+</ul>
+For full and detailed explanation please see <a href="http://www.w3.org/TR/ws-cdl-10/">WS-CDL specification.</a>
+
+Also, see <a href="http://www.infoq.com/presentations/hohpe-soa-conversations">Gregor's Presentation </a> at infoQ.

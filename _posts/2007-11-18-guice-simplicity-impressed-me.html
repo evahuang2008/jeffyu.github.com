@@ -1,0 +1,33 @@
+--- 
+layout: post
+title: Guice simplicity impressed me.
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "4282325555399965300"
+  _searchme: "1"
+  _edit_last: "1"
+  _efficient_related_posts: a:4:{i:0;a:4:{s:2:"ID";s:3:"174";s:10:"post_title";s:12:"Guice videos";s:7:"matches";s:1:"2";s:9:"permalink";s:49:"http://jeff.familyyu.net/2007/11/18/guice-videos/";}i:1;a:4:{s:2:"ID";s:3:"260";s:10:"post_title";s:40:"JBoss AS5 MC articles and presentations.";s:7:"matches";s:1:"1";s:9:"permalink";s:76:"http://jeff.familyyu.net/2009/11/16/jboss-as5-mc-articles-and-presentations/";}i:2;a:4:{s:2:"ID";s:3:"173";s:10:"post_title";s:24:"Spring 2.x IOC exploring";s:7:"matches";s:1:"1";s:9:"permalink";s:61:"http://jeff.familyyu.net/2007/11/18/spring-2-x-ioc-exploring/";}i:3;a:4:{s:2:"ID";s:3:"171";s:10:"post_title";s:26:"Spring 1.2.x IOC exploring";s:7:"matches";s:1:"1";s:9:"permalink";s:63:"http://jeff.familyyu.net/2007/11/17/spring-1-2-x-ioc-exploring/";}}
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+  _relation_threshold: "1"
+tags: 
+- Guice
+- IOC
+- Java
+type: post
+status: publish
+---
+Today, I've tried a simple sample with <a href="http://code.google.com/p/google-guice/">Guice</a>, it reduces a lot configuration compares to spring's xml config. Firstly, I am a bit of worrying using annotation too much would make code a bit messy, it would be a bit hard to read with a lot of annotation, that fact is that with Guice, it is not too much annotation, we can consider it is sort of javadoc, and just for the resource that you need to inject.
+
+Compared to spring's xml configuration, it has below advantages (IMHO) :
+1. Use the @Inject annotation to define the injections, instead of using xml, for xml configuration, you need to write verbose xml to define the relationship.
+2. The string in the xml file is more misspelling than using java code itself, since compiler would tell you that.
+3. The most important one is it can make them consistent. It is easy for developers to refactor. Most IDE support that. I mean using java config instead of xml.. not the annotation.
+
+There is a comprehensive comparison between Guice and Spring <a href="http://code.google.com/p/google-guice/wiki/SpringComparison">here</a>.
+
+All in all, its simplicity impressed me, if you are looking for a lightweight DI container, you should check out Guice. It worths you a try.
+
+PS: Spring also has the spring java config since 2.5 version, haven't got a chance to try it out yet.

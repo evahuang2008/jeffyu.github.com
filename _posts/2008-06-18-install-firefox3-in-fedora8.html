@@ -1,0 +1,39 @@
+--- 
+layout: post
+title: Install Firefox3 in Fedora8.
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "3352117053675049636"
+  _searchme: "1"
+  _edit_last: "1"
+  _efficient_related_posts: "a:10:{i:0;a:4:{s:2:\"ID\";s:3:\"264\";s:10:\"post_title\";s:47:\"Install VirtualBox and Chrome beta in Fedora 10\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:84:\"http://jeff.familyyu.net/2009/12/12/install-virtualbox-and-chrome-beta-in-fedora-10/\";}i:1;a:4:{s:2:\"ID\";s:3:\"231\";s:10:\"post_title\";s:27:\"Fedora environment setting.\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:63:\"http://jeff.familyyu.net/2009/07/08/fedora-environment-setting/\";}i:2;a:4:{s:2:\"ID\";s:3:\"228\";s:10:\"post_title\";s:40:\"Fedora 10 \xE4\xBD\xBF\xE7\x94\xA8NetworkManager\xE9\x85\x8D\xE7\xBD\xAEADSL\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:101:\"http://jeff.familyyu.net/2009/06/03/fedora-10-%e4%bd%bf%e7%94%a8networkmanager%e9%85%8d%e7%bd%aeadsl/\";}i:3;a:4:{s:2:\"ID\";s:3:\"220\";s:10:\"post_title\";s:45:\"How to fix \"Lock Assertion Failure\" in Fedora\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:80:\"http://jeff.familyyu.net/2008/10/08/how-to-fix-lock-assertion-failure-in-fedora/\";}i:4;a:4:{s:2:\"ID\";s:3:\"205\";s:10:\"post_title\";s:37:\"Fedora8 in Lenovo T61P with Projector\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:74:\"http://jeff.familyyu.net/2008/06/17/fedora8-in-lenovo-t61p-with-projector/\";}i:5;a:4:{s:2:\"ID\";s:3:\"203\";s:10:\"post_title\";s:44:\"Postgresql installation/connection in Fedora\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:80:\"http://jeff.familyyu.net/2008/05/19/postgresql-installationconnection-in-fedora/\";}i:6;a:4:{s:2:\"ID\";s:3:\"202\";s:10:\"post_title\";s:34:\"Using wireless in Fedora8 for T61P\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:71:\"http://jeff.familyyu.net/2008/05/05/using-wireless-in-fedora8-for-t61p/\";}i:7;a:4:{s:2:\"ID\";s:3:\"201\";s:10:\"post_title\";s:26:\"My Fedora8 Roadmap on T61P\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:63:\"http://jeff.familyyu.net/2008/05/01/my-fedora8-roadmap-on-t61p/\";}i:8;a:4:{s:2:\"ID\";s:3:\"200\";s:10:\"post_title\";s:34:\"Dell D820 and Lenovo ThinkPad T61P\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:71:\"http://jeff.familyyu.net/2008/05/01/dell-d820-and-lenovo-thinkpad-t61p/\";}i:9;a:4:{s:2:\"ID\";s:3:\"199\";s:10:\"post_title\";s:30:\"Open source business in Redhat\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:67:\"http://jeff.familyyu.net/2008/04/22/open-source-business-in-redhat/\";}}"
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+  _relation_threshold: "1"
+tags: 
+- Fedora
+- OS
+type: post
+status: publish
+---
+Today is a big day for <a href="http://www.mozilla.com/en-US/firefox/">Firefox</a>, it just released its <a href="http://www.spreadfirefox.com/en-US/worldrecord">firefox3.GA</a>, with more than 15,000 improvements over firefox2.x.
+
+So, I just can't wait to give that a try, but it seems that Fedora 9 shipped with the firefox3, as for Fedora8, it still sticks to the firefox2.x. Then I look for a firefox3 rpm package for F8, here comes the <a href="http://mirror.yandex.ru/fedora/tigro/8/i386/firefox3-3.0-1.fc8.i386.rpm">i86 rpm</a>, it is from this thread.[1]:
+
+After you download the rpm, simply run: (Before installing firefox3, remember to keep a backup for your bookmark)
+
+rpm -i firefox3....(your rpm filename).
+
+Note: It doesn't work when I am running "yum localinstall ...", it seems failed in the GPG key check.
+
+Once you finish the installation, simply open a shell, run: firefox3, make sure you have closed all the firefox browser, otherwise, it will still runs the firefox as same as what you are using now.
+Your firefox3 and firefox2.x can be co-existed in your Fedora, but it just can be used one version at a time, it depends on which version you are firstly opened!
+
+Although I know it is not a good/easy way for us to install software by using rpm, it is better to use the yum, so that we can make sure that the library dependencies get right, but currently, I haven't found the firefox3 in the F8 repository. Hopefully someone will upload it there.
+
+<span style="color: #ff0000;">Update: Ahh.... just found we can download the tar file from mozilla directly, extract and run the "./firefox" in your console. but need to make sure you have closed all the firefox web browser, otherwise, it won't get it updated. That is when I thought this approach might not work. :(</span>
+
+[Reference]
+1: <a href="http://forums.fedoraforum.org/showthread.php?t=192028">http://forums.fedoraforum.org/showthread.php?t=192028</a>

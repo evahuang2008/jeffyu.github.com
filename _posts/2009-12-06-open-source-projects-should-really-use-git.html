@@ -1,0 +1,36 @@
+--- 
+layout: post
+title: open source projects should really use Git
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "3842851491963895769"
+  _searchme: "1"
+  _edit_last: "1"
+  _efficient_related_posts: a:2:{i:0;a:4:{s:2:"ID";s:3:"736";s:10:"post_title";s:20:"Git merge or rebase?";s:7:"matches";s:1:"1";s:9:"permalink";s:56:"http://jeff.familyyu.net/2011/10/18/git-merge-or-rebase/";}i:1;a:4:{s:2:"ID";s:3:"731";s:10:"post_title";s:39:"Git Cheat Sheet for history/difference.";s:7:"matches";s:1:"1";s:9:"permalink";s:74:"http://jeff.familyyu.net/2011/10/16/git-cheat-sheet-for-historydifference/";}}
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+  _relation_threshold: "1"
+tags: 
+- Git
+- SCM
+type: post
+status: publish
+---
+I am starting to work on one task in ODE, titled cleanup JPA impl (<a href="https://issues.apache.org/jira/browse/ODE-704">https://issues.apache.org/jira/browse/ODE-704</a>), basically it is a quite large refactoring on DAO layer of ODE project. Because I am not a ODE committer, It is not an easy job to get this task done.
+
+After talked with <a href="http://rrusin.blogspot.com/">Rafal Rusin</a> on the ode IRC channel, he suggested that I create a git project in <a href="http://www.github.com/">github</a>, which clones the ode git repo, and then put my jpa refactoring experiment branch in github, once my code has finished, and passed all the tests, they can merge my branch into the ode trunk.
+
+I've heard of <a href="http://git-scm.com/">Git</a> for a while, but didn't get a chance to use it, as currently I am still using the Subversion as SCM repository. One thing that I learnt from history is that try to avoid using branch in SVN or CVS as much as possible, it is really a headache for merging branch back to trunk, so this is very inconvenient for you to try some new feature, or some experiment codes.
+
+Create a project at Github is very easy, if you have problems, <a href="http://help.github.com/">GitHub's help</a> is your friend. I have to say that Github did an awesome job on project hosting, it makes you very easy to browse your code, the diff message between version etc.
+
+Watching the <a href="http://www.youtube.com/watch?v=4XpnKHJAok8">Linus' Git talk on Google Tech conf</a>, very interesting, totally agreed that one pain with centralized repository like CVS or SVN, is that you need to get the commit access for your contribution (I am not saying a small fix, or patch, I meant some large task, or feature etc, which would require multiple patches, and might take one or two weeks), like the case that I am hitting now. Alternatively, if you are hosting code repository by using Git, I can clone it from the url, and pull the changes into my local workspace to make it up-to-date, and then push it into some other repository, once I've finished my task, I will send you my code repository, and then you can take a look at those code to decide if you want to accept my code or not. In this case, I don't need to have a commit permission in advance. Also merge in Git is very easy, it makes collaboration really easy.
+
+So, I would strongly recommend that every open source project should embrace the Git as scm tool, lets forget about Subversion, CVS. Lets embrace the branch. ;-)
+
+couple resources that could help you get started with Git.
+1. <a href="http://git-scm.com/">Git website</a>
+2. <a href="http://www.github.com/">GitHub webiste</a>
+3. <a href="http://learn.github.com/">Learn Git website</a> (Strongly recommend for learning)

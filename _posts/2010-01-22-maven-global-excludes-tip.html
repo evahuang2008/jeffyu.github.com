@@ -1,0 +1,17 @@
+--- 
+layout: post
+title: Maven Global Excludes tip.
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "6974201377384010075"
+  _searchme: "1"
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+tags: 
+- Maven
+type: post
+status: publish
+---
+If you work on a project that has ton of jar dependencies, and you want to exclude the 'xerces' (for example), you might end up using the exclusion multiple times, as a lot of jars are depending on the 'xerces'. In this case, you can use <a href="http://jlorenzen.blogspot.com/2009/06/maven-global-excludes.html">following way to achieve the 'global exclude' </a>in maven.

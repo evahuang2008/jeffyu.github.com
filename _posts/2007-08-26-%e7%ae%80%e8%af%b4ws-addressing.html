@@ -1,0 +1,22 @@
+--- 
+layout: post
+title: !binary |
+  566A6K+0V1MtQWRkcmVzc2luZw==
+
+published: true
+meta: 
+  spaces_a43755b404d273dfcedbd14ccb4f51ab_permalink: http://cid-04001c604af3f011.users.api.live.net/Users(288261576051650577)/Blogs('4001C604AF3F011!102')/Entries('4001C604AF3F011!480')?authkey=X13wC75MXT0%24
+  _searchme: "1"
+tags: 
+- Web Service
+type: post
+status: publish
+---
+<div id="msgcns!4001C604AF3F011!480" class="bvMsg">WS-Addressing主要是做什么呢?我们先来看一个普通的,没有加入WS-A的SOAP信息:<br /><br />A SOAP 1.2 message, without WS-Addressing, sent over HTTP transport looks like:<br />(001) POST /fabrikam/Purchasing HTTP 1.1/POST<br />(002) Host: example.com<br />(003) SOAPAction: http://example.com/fabrikam/SubmitPO<br />(004)<br />(005) &lt;S:Envelope xmlns:S=&quot;http://www.w3.org/2003/05/soap-envelope&quot;<br />xmlns:wombat=&quot;http://wombat.org/&quot;&gt;<br />(006) &lt;S:Header&gt;<br />(007) &lt;wombat:MessageID&gt;<br />(008) uuid:e197db59-0982-4c9c-9702-4234d204f7f4<br />(009) &lt;/wombat:MessageID&gt;<br />(010) &lt;S:Header&gt;<br />(011) &lt;S:Body&gt;<br />(012) ...<br />(013) &lt;/S:Body&gt;<br />(014) &lt;/S:Envelope&gt;<br />Line (001) - (003) shows the HTTP transport headers. Line (005) - (014) shows the SOAP message in HTTP body.<br />这里,没有WS-A的情况下,所有Transport层的信息都没有放到SOAP的Message里面. <br />我们来看看WS-A存在的目的:<br /><font color="#c00000">SOAP does not provide a standard way to specify where a message is
+going, how to return a response, or where to report an error. Those
+details have historically been left up to the transport layer. For
+example, when a standard SOAP request is sent over HTTP, the URI of the
+HTTP request serves as the message's destination.<br />Addressing at the transport level is sufficient for many existing
+services, but it has been a limiting factor in the development of
+others. WS-Addressing defines standard ways to route a message over
+multiple transports or direct a response to a third party.<br /><font color="#000000"><br />简单来说呢?就是想把本来是在Transport这一层的信息写入到SOAP的信息头&lt;Head&gt;中.下面可以看下有了WS-A后的SOAP信息:<br />A SOAP 1.2 message, with WS-Addressing, sent over HTTP transport looks like:<br />(001) POST /fabrikam/Purchasing HTTP 1.1/POST<br />(002) Host: example.com<br />(003) SOAPAction: http://example.com/fabrikam/SubmitPO<br />(004)<br />(005) &lt;S:Envelope xmlns:S=&quot;http://www.w3.org/2003/05/soap-envelope&quot;<br />xmlns:wsa=&quot;http://www.w3.org/2005/08/addressing/&quot;&gt;<br />(006) &lt;S:Header&gt;<br />(007) &lt;wsa:MessageID&gt;<br />(008) uuid:e197db59-0982-4c9c-9702-4234d204f7f4<br />(009) &lt;/wsa:MessageID&gt;<br /><font color="#ff0000">(010) &lt;wsa:To&gt;<br />(011) http://example.com/fabrikam/Purchasing<br />(012) &lt;/wsa:To&gt;<br />(013) &lt;wsa:Action&gt;<br />(014) http://example.com/fabrikam/SubmitPO<br />(015) &lt;/wsa:Action&gt;</font><br />(016) &lt;S:Header&gt;<br />(017) &lt;S:Body&gt;<br />(018) ...<br />(019) &lt;/S:Body&gt;<br />(020) &lt;/S:Envelope&gt;<br /><br />在这个WS-Addressing规范中,主要引入了两个东西: 1. Endpoint References (EPR) 2. Message addressing properties (MAPs).  如[1]中文章所说: 可以把EPR想象成具体的某个地址,比如说某市某县某胡同的2号楼. 而把MAPs想象成地址的布局.比如有收信地址,收信人.<br /><br />把这些Transport的信息放入Soap信息中,有个好处就是能实现Transport-neutral,因为我们传递的是SOAP信息.<br /><br />参考资料: <br />[1] <a href="http://dev2dev.bea.com/pub/a/2005/01/ws_addressing_intro.html">http://dev2dev.bea.com/pub/a/2005/01/ws_addressing_intro.html</a><br />[2] <a href="http://www.javapassion.com/webservices/wsaddressing.pdf">http://www.javapassion.com/webservices/wsaddressing.pdf</a><br /></font></font></div>

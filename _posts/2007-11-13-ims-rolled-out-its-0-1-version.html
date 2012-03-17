@@ -1,0 +1,45 @@
+--- 
+layout: post
+title: IMS rolled out its 0.1 version
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "2421152960852901884"
+  _edit_last: "1"
+  _efficient_related_posts: "a:8:{i:0;a:4:{s:2:\"ID\";s:3:\"272\";s:10:\"post_title\";s:40:\"Apache CXF Web Service Development book.\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:76:\"http://jeff.familyyu.net/2010/02/20/apache-cxf-web-service-development-book/\";}i:1;a:4:{s:2:\"ID\";s:3:\"173\";s:10:\"post_title\";s:24:\"Spring 2.x IOC exploring\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:61:\"http://jeff.familyyu.net/2007/11/18/spring-2-x-ioc-exploring/\";}i:2;a:4:{s:2:\"ID\";s:3:\"172\";s:10:\"post_title\";s:45:\"Is it a bad idea to reply on Spring too much?\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:81:\"http://jeff.familyyu.net/2007/11/17/is-it-a-bad-idea-to-reply-on-spring-too-much/\";}i:3;a:4:{s:2:\"ID\";s:3:\"171\";s:10:\"post_title\";s:26:\"Spring 1.2.x IOC exploring\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:63:\"http://jeff.familyyu.net/2007/11/17/spring-1-2-x-ioc-exploring/\";}i:4;a:4:{s:2:\"ID\";s:3:\"146\";s:10:\"post_title\";s:29:\"CXF ServiceInfo Model diagram\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:66:\"http://jeff.familyyu.net/2007/09/06/cxf-serviceinfo-model-diagram/\";}i:5;a:4:{s:2:\"ID\";s:1:\"6\";s:10:\"post_title\";s:53:\"[CXF]CXF\xE4\xB8\xAD\xE7\x9A\x84\xE4\xB8\xA4\xE4\xB8\xAA\xE6\xA6\x82\xE5\xBF\xB5:Invoker & PhaseInterceptor\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:121:\"http://jeff.familyyu.net/2007/08/26/cxfcxf%e4%b8%ad%e7%9a%84%e4%b8%a4%e4%b8%aa%e6%a6%82%e5%bf%b5invoker-phaseinterceptor/\";}i:6;a:4:{s:2:\"ID\";s:2:\"10\";s:10:\"post_title\";s:61:\"[CXF]CXF\xE5\xBD\x93\xE4\xB8\xAD\xE7\x9A\x84Configuration -- Spring2.0\xE5\x8F\xAF\xE6\x89\xA9\xE5\xB1\x95XML\xE9\x85\x8D\xE7\xBD\xAE\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:141:\"http://jeff.familyyu.net/2007/08/23/cxfcxf%e5%bd%93%e4%b8%ad%e7%9a%84configuration-spring2-0%e5%8f%af%e6%89%a9%e5%b1%95xml%e9%85%8d%e7%bd%ae/\";}i:7;a:4:{s:2:\"ID\";s:2:\"11\";s:10:\"post_title\";s:26:\"[CXF]CXF\xE4\xB8\xAD\xE9\x87\x8D\xE8\xA6\x81\xE6\xA6\x82\xE5\xBF\xB5Bus\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:91:\"http://jeff.familyyu.net/2007/08/22/cxfcxf%e4%b8%ad%e9%87%8d%e8%a6%81%e6%a6%82%e5%bf%b5bus/\";}}"
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+  _relation_threshold: "1"
+tags: 
+- CXF
+- Java
+- SOA
+- Spring
+- Web Service
+type: post
+status: publish
+---
+I created a little project at <a href="http://code.google.com/p/blogging/">Google Code</a>, it rolled out its 0.1 version in 5 Nov 2007.. In this release, it demonstrates below functionalities (copied from release note)..
+
+<span style="font-weight: bold;">ims-core module</span>
+<ol>
+	<li>Using JAXWS + JAXB (CXF runtime) to publish web service.</li>
+	<li>Using Spring acegi as web service authorization.</li>
+	<li>Using ws-security (plain password) as authentication.</li>
+	<li>Using Spring AOP transaction.</li>
+	<li>Using DBUnit to do the dao unit test.</li>
+	<li>Using easymock to do the service layer unit test.</li>
+	<li>Using cxf local transport to do the web service unit test.</li>
+</ol>
+<span style="font-weight: bold;">ims-web module</span>
+<ol>
+	<li>Using CXF wsdl2java (codegen tool) to generate the stub.</li>
+	<li>Using JAXWS customization to use the java.util.Date instead of XMLGregorianCalendar.</li>
+	<li>Using JAXWS + JAXB (CXF runtime) to access the web service.</li>
+	<li>Using Spring acegi web application filter and Jcaptcha as security implementation.</li>
+	<li>Using div + css as layout design implementation.</li>
+</ol>
+You can download the source code from <a href="http://blogging.googlecode.com/files/ims-0.1-src.zip">here</a>, since its war size is about 20M, I don't provide it in the website, you need to refer to the README.txt in the source code to build it, it is quite straightforward to get it working.. (actually you just need to set up database manually, and then update the database connection config file appropriately).
+
+I've also created some tasks for 0.2 release or future in the <a href="http://code.google.com/p/blogging/issues/list">issue page</a>, if you want to join this project, drop me a mail, (or add a comment here), I would add you as a commiter.

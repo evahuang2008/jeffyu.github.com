@@ -1,0 +1,18 @@
+--- 
+layout: post
+title: Packaging OSGi bundle.
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "8404288403746747412"
+  _searchme: "1"
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+tags: 
+- Maven
+- OSGi
+type: post
+status: publish
+---
+It is tedious for you to write the Import-Package, Export-Package directly in the MENIFEAST.MF file... Here is a <a href="http://felix.apache.org/site/maven-bundle-plugin-bnd.html">felix maven plugin</a> that helps you make life easier.<br /><br />Today, talked with <a href="http://gnodet.blogspot.com/">Guillaume</a> , it makes me know clear and more about the packaging OSGi bundle options.<br /><br />1.&lt;Export-Package&gt;. (It is detailed explained in the Reference 1).<br />2.&lt; Private-Package&gt;: it will actually "merge" (copied) the jars and include in the bundle you are creating all the packages referenced.<br />3. &lt; Import-Package&gt; If you want to import something as optional, use the syntax as: javax.jmdns*;resolution:=optional,<br />4. &lt;Spring-Context&gt; This option is for spring-OSGi, it specified where spring config file need to load, and some other spring-osgi attributes, such as: create-asynchronously etc, take "publish-context" for example, if we specify the "publish-context := fasle", then you registered some bean in the registry, meanwhile, in the test case, you use the "waitOnContextCreation()" method, you would get a timeout error.<br /><br />5. If you want to test the configuration admin functionalities, you need to install below 3 bundles:<br />1) org.apache.felix:org.apache.felix.configadmin<br />2) org.apache.felix:org.osgi.compendium<br />3) org.apache.geronimo.specs:geronimo-servlet_2.5_spec<br /><br />6. If you install a bundle, you get below error message:<br /><blockquote>Missing Constraint: Import-Package: *; version="0.0.0"</blockquote><br />It means you are missing libraries dependency in the pom file.<br /><br />Reference:<br />1. <a href="http://felix.apache.org/site/maven-bundle-plugin-bnd.html">Felix maven pulgin info</a><br />2. <a href="http://www.aqute.biz/Code/Bnd">BND tool</a>

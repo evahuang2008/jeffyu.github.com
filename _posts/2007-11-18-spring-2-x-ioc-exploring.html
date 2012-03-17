@@ -1,0 +1,47 @@
+--- 
+layout: post
+title: Spring 2.x IOC exploring
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "4479353328506491548"
+  _searchme: "1"
+  _edit_last: "1"
+  _efficient_related_posts: a:6:{i:0;a:4:{s:2:"ID";s:3:"171";s:10:"post_title";s:26:"Spring 1.2.x IOC exploring";s:7:"matches";s:1:"2";s:9:"permalink";s:63:"http://jeff.familyyu.net/2007/11/17/spring-1-2-x-ioc-exploring/";}i:1;a:4:{s:2:"ID";s:3:"260";s:10:"post_title";s:40:"JBoss AS5 MC articles and presentations.";s:7:"matches";s:1:"1";s:9:"permalink";s:76:"http://jeff.familyyu.net/2009/11/16/jboss-as5-mc-articles-and-presentations/";}i:2;a:4:{s:2:"ID";s:3:"175";s:10:"post_title";s:30:"Guice simplicity impressed me.";s:7:"matches";s:1:"1";s:9:"permalink";s:66:"http://jeff.familyyu.net/2007/11/18/guice-simplicity-impressed-me/";}i:3;a:4:{s:2:"ID";s:3:"174";s:10:"post_title";s:12:"Guice videos";s:7:"matches";s:1:"1";s:9:"permalink";s:49:"http://jeff.familyyu.net/2007/11/18/guice-videos/";}i:4;a:4:{s:2:"ID";s:3:"172";s:10:"post_title";s:45:"Is it a bad idea to reply on Spring too much?";s:7:"matches";s:1:"1";s:9:"permalink";s:81:"http://jeff.familyyu.net/2007/11/17/is-it-a-bad-idea-to-reply-on-spring-too-much/";}i:5;a:4:{s:2:"ID";s:3:"167";s:10:"post_title";s:30:"IMS rolled out its 0.1 version";s:7:"matches";s:1:"1";s:9:"permalink";s:67:"http://jeff.familyyu.net/2007/11/13/ims-rolled-out-its-0-1-version/";}}
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+  _relation_threshold: "1"
+tags: 
+- IOC
+- Java
+- Spring
+type: post
+status: publish
+---
+OK, Lets see how the IOC (DI) module move forward in the spring 2.x version.
+<ol>
+	<li>XML configuration extensions.&nbsp;
+
+I would say this enhancement make the third-party library, which build on spring's IOC container, a lot of easier for the configuration. Such as Apache CXF, Apache Activemq and so on. Personally, I would consider this is a big improvement for the configuration, and integration with other libraries.
+Adding a custom xml configuration typically has below four steps:
+<ul>
+	<li>Authoring an xml schema to describe your custom element(s).</li>
+	<li>Coding a custom NameSpaceHandler implementation.</li>
+	<li>Coding one or more BeanDefinitionParser implementation. (This is the real job that need to be done. populate the data from xml file).</li>
+	<li>Registering the above artifact with spring.</li>
+</ul>
+The most real job is parsing the xml in the BeanDefinitionParser class, and get the data from xml to bean.
+
+The spring's registering way is an inspiration of how we can register the stuff modularly, instead of putting all of configuration file in one center place, we can split them in its own module, but with the same relative path, such as /META-INF/spring/spring.handlers for spring's example.</li>
+	<li>New Bean scopes.
+In the Spring1.x IOC module, it just has two scope:the singleton and non-singleton, it is way too coarse-grain. In the 2.x version, it adds more scopes, like Session scope, Request scope etc..it also has custom scope.</li>
+	<li>Spring Java config.
+To be specific, this is introduced by the spring2.5.. I am gonna try this later and give it a comparison with <a href="http://code.google.com/p/google-guice/">Guice</a> in next couple entries..</li>
+</ol>
+Reference
+1. <a href="http://static.springframework.org/spring/docs/2.0.x/reference/extensible-xml.html">Spring 2.x extensible xml explanation</a>
+2. <a href="http://www.memestorm.com/blog/spring-components-xml-configuration-on-steroids/">spring-components-xml-configuration-on-steroids (example)</a>
+3. <a href="http://www.infoq.com/articles/spring-2-intro">Spring2.o Intro</a> (Posted at InfoQ)
+4. <a href="http://cwiki.apache.org/CXF20DOC/configuration-for-developers.html">How CXF configuration works</a>
+5. <a href="http://static.springframework.org/spring-javaconfig/docs/1.0-m2a/reference/html/">Spring Java config reference</a>

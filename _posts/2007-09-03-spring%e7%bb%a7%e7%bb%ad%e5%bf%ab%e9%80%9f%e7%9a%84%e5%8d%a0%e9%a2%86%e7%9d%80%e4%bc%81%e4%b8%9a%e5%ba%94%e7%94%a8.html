@@ -1,0 +1,49 @@
+--- 
+layout: post
+title: !binary |
+  U3ByaW5n57un57ut5b+r6YCf55qE5Y2g6aKG552A5LyB5Lia5bqU55So
+
+published: true
+meta: 
+  spaces_a43755b404d273dfcedbd14ccb4f51ab_permalink: http://cid-04001c604af3f011.users.api.live.net/Users(288261576051650577)/Blogs('4001C604AF3F011!102')/Entries('4001C604AF3F011!482')?authkey=X13wC75MXT0%24
+  _searchme: "1"
+  _edit_last: "1"
+  _syntaxhighlighter_encoded: "1"
+tags: 
+- Java
+type: post
+status: publish
+---
+<div id="msgcns!4001C604AF3F011!482" class="bvMsg">
+
+今天晚上听了Rod Johnson的<a href="http://www.infoq.com/presentations/spring-2-rod-johnson">Spring2.0&amp;Beyond</a>的讲座,让我惊讶的是Spring的东西越来越多了,以前我们看Spring,它是有这些模块的.
+1. Bean的管理. (IOC)
+2. 事务的处理. (AOP)
+3. DAO这一层的抽象.(比如JDBCTemplate, HibernateTemplate).
+4. 还有一些Opensource Integration (比如: quartz)
+当然了,那时候还有spring MVC,但感觉不是那么的流行.
+但是现在回头看spring2.0的时候,我不得不惊讶了. 它现在可以说是准备做成一个One Stop Shop了.
+增加了很多东西.
+1. Spring portfolios, 比如什么LDAPTemplate etc.
+2. Spring web service.
+3. Spring xml DSL.(spring configuration 2.0扩展配置)
+4. Spring OSGI.
+5. Spring Web Flow.
+6. Spring multiple language support.
+......
+可以说,真的是,越来越强大.如Rod所说.(Simplicity and Power).
+
+这里还要说一点的是,multiple language support, 在CXF当中,我们有一个支持动态语言的,比如说groovy,ruby的.我们是可以直接使用spring的这个功能来实现,配置可以是:
+[xml]
+&lt;lang:jruby id=&quot;helloworldImpl&quot; &lt;code&gt;script-interfaces=&quot;demo.spring.HelloWorld&quot;&lt;/code&gt; script-source=&quot;classpath:demo/spring/HelloWorldImpl.rb&quot; scope=&quot;prototype&quot;&gt;
+&lt;/lang:jruby&gt;
+  &lt;simple:server id=&quot;pojoservice&quot;  address=&quot;/HelloWorld&quot;&gt;
+      &lt;simple:serviceBean&gt;
+          &lt;ref bean=&quot;helloworldImpl&quot; /&gt;
+      &lt;/simple:serviceBean&gt;
+  &lt;/simple:server&gt;
+[/xml]
+我当时回复说,能不能把这个<code> "script-interfaces</code>" 去掉. 这显然是不合理的,因为script-interfaces就是Contract. spring支持multiple language support的本意是说隐藏了他的具体实现. 我们把Java的实现分成API 和Implementation,那是因为我们想隐藏Implementation. 但是我们肯定是需要API的,API实际上就是Contract,就是要跟Client打交道或者说是要发布出去的.
+就好比WSDL和具体的语言实现. 问这个问题就相当于说我们能不能发布web-service,不需要WSDL一样. 答案也和WSDL类似,那就是你可以不写wsdl,但是你可能需要在你的Implementation中加以某种方式(比如Annotation),这样让我们来生成WSDL.
+
+</div>

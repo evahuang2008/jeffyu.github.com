@@ -1,0 +1,58 @@
+--- 
+layout: post
+title: My Fedora8 Roadmap on T61P
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "1222573695772295059"
+  _searchme: "1"
+  _edit_last: "1"
+  _efficient_related_posts: "a:10:{i:0;a:4:{s:2:\"ID\";s:3:\"264\";s:10:\"post_title\";s:47:\"Install VirtualBox and Chrome beta in Fedora 10\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:84:\"http://jeff.familyyu.net/2009/12/12/install-virtualbox-and-chrome-beta-in-fedora-10/\";}i:1;a:4:{s:2:\"ID\";s:3:\"231\";s:10:\"post_title\";s:27:\"Fedora environment setting.\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:63:\"http://jeff.familyyu.net/2009/07/08/fedora-environment-setting/\";}i:2;a:4:{s:2:\"ID\";s:3:\"228\";s:10:\"post_title\";s:40:\"Fedora 10 \xE4\xBD\xBF\xE7\x94\xA8NetworkManager\xE9\x85\x8D\xE7\xBD\xAEADSL\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:101:\"http://jeff.familyyu.net/2009/06/03/fedora-10-%e4%bd%bf%e7%94%a8networkmanager%e9%85%8d%e7%bd%aeadsl/\";}i:3;a:4:{s:2:\"ID\";s:3:\"220\";s:10:\"post_title\";s:45:\"How to fix \"Lock Assertion Failure\" in Fedora\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:80:\"http://jeff.familyyu.net/2008/10/08/how-to-fix-lock-assertion-failure-in-fedora/\";}i:4;a:4:{s:2:\"ID\";s:3:\"207\";s:10:\"post_title\";s:28:\"Install Firefox3 in Fedora8.\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:64:\"http://jeff.familyyu.net/2008/06/18/install-firefox3-in-fedora8/\";}i:5;a:4:{s:2:\"ID\";s:3:\"205\";s:10:\"post_title\";s:37:\"Fedora8 in Lenovo T61P with Projector\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:74:\"http://jeff.familyyu.net/2008/06/17/fedora8-in-lenovo-t61p-with-projector/\";}i:6;a:4:{s:2:\"ID\";s:3:\"203\";s:10:\"post_title\";s:44:\"Postgresql installation/connection in Fedora\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:80:\"http://jeff.familyyu.net/2008/05/19/postgresql-installationconnection-in-fedora/\";}i:7;a:4:{s:2:\"ID\";s:3:\"202\";s:10:\"post_title\";s:34:\"Using wireless in Fedora8 for T61P\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:71:\"http://jeff.familyyu.net/2008/05/05/using-wireless-in-fedora8-for-t61p/\";}i:8;a:4:{s:2:\"ID\";s:3:\"200\";s:10:\"post_title\";s:34:\"Dell D820 and Lenovo ThinkPad T61P\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:71:\"http://jeff.familyyu.net/2008/05/01/dell-d820-and-lenovo-thinkpad-t61p/\";}i:9;a:4:{s:2:\"ID\";s:3:\"199\";s:10:\"post_title\";s:30:\"Open source business in Redhat\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:67:\"http://jeff.familyyu.net/2008/04/22/open-source-business-in-redhat/\";}}"
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+  _relation_threshold: "1"
+tags: 
+- Fedora
+- OS
+type: post
+status: publish
+---
+1. firstly, you need to install the Fedora8 in "text mode", because the ndivia driver issue. (be patient, this issue will be resolve in next. ;-)
+
+2. Add repositories.
+1) <a href="http://rpm.livna.org/livna-release-8.rpm">Livna</a>: rpm -i http://rpm.livna.org/livna-release-8.rpm
+2) <a href="http://ftp.freshrpms.net/pub/freshrpms/fedora/linux/7/freshrpms-release/freshrpms-release-1.1-1.fc.noarch.rpm">FreshRPMS</a>: rpm -i http://ftp.freshrpms.net/pub/freshrpms/fedora/linux/7/
+freshrpms-release/freshrpms-release-1.1-1.fc.noarch.rpm
+
+3. Two ways to solve the display/video problem.
+<ul>
+	<li>2.1 log in as a root, and then update the /etc/X11/xorg.conf by using "vesa" mode, it should be located in the "Dirver" section. basically, need to change from the "nv" to "vesa" in a refresh installation.</li>
+	<li>2.2 using "yum install kmod-nvidia, xorg-x11-drv-nvidia", if it asks you to upgrade the kernel first, which is my case.  I need to run the "yum update kernel".
+After you installed the drivers, and run the "startx" to log in the X window.</li>
+</ul>
+4. Install compiz packages, 3D effect.
+Detail please see <a href="http://www.fedoraguide.info/index.php/Main_Page#Compiz-fusion_.283D_effects.29">this link</a>.
+
+5. Install chinese-input &amp; fonts
+See my the other <a href="http://jeffyuchang.blogspot.com/2008/03/fedora8-installation.html">blog entry here</a>.
+
+6. Update System.
+"yum -y upgrade"
+
+7. Other softwares.
+yum install xchat,
+stardict,
+skype,
+thunderbird,
+xmms, xmms-mp3, xmms-wma,
+mplayer,smplayer
+......
+
+8. Update the default level for initialization.
+By default, the machine will run on Level 3, it means that it won't start the X window automatically, you can modify it in "/etc/inittab" file, around line 18.
+
+[Reference]
+1. <a href="http://www.thinkwiki.org/wiki/Installing_Fedora_8_on_a_ThinkPad_T61p">Fedora8 on ThinkPad T61P</a>
+2. <a href="http://gka-linux.blogspot.com/2007/11/my-fedora-8-road-map.html">Gustavo's Fedora8 roadmap </a>
+3. <a href="http://www.fedoraguide.info/index.php/Main_Page">Fedora8 Guide</a>

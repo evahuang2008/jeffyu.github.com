@@ -1,0 +1,53 @@
+--- 
+layout: post
+title: !binary |
+  W0NYRl1DWEbkuK3ph43opoHmpoLlv7VCdXM=
+
+published: true
+meta: 
+  spaces_a43755b404d273dfcedbd14ccb4f51ab_permalink: http://cid-04001c604af3f011.users.api.live.net/Users(288261576051650577)/Blogs('4001C604AF3F011!102')/Entries('4001C604AF3F011!477')?authkey=X13wC75MXT0%24
+  _searchme: "1"
+  _edit_last: "1"
+  _efficient_related_posts: "a:8:{i:0;a:4:{s:2:\"ID\";s:3:\"272\";s:10:\"post_title\";s:40:\"Apache CXF Web Service Development book.\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:76:\"http://jeff.familyyu.net/2010/02/20/apache-cxf-web-service-development-book/\";}i:1;a:4:{s:2:\"ID\";s:3:\"167\";s:10:\"post_title\";s:30:\"IMS rolled out its 0.1 version\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:67:\"http://jeff.familyyu.net/2007/11/13/ims-rolled-out-its-0-1-version/\";}i:2;a:4:{s:2:\"ID\";s:3:\"146\";s:10:\"post_title\";s:29:\"CXF ServiceInfo Model diagram\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:66:\"http://jeff.familyyu.net/2007/09/06/cxf-serviceinfo-model-diagram/\";}i:3;a:4:{s:2:\"ID\";s:1:\"6\";s:10:\"post_title\";s:53:\"[CXF]CXF\xE4\xB8\xAD\xE7\x9A\x84\xE4\xB8\xA4\xE4\xB8\xAA\xE6\xA6\x82\xE5\xBF\xB5:Invoker & PhaseInterceptor\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:121:\"http://jeff.familyyu.net/2007/08/26/cxfcxf%e4%b8%ad%e7%9a%84%e4%b8%a4%e4%b8%aa%e6%a6%82%e5%bf%b5invoker-phaseinterceptor/\";}i:4;a:4:{s:2:\"ID\";s:2:\"10\";s:10:\"post_title\";s:61:\"[CXF]CXF\xE5\xBD\x93\xE4\xB8\xAD\xE7\x9A\x84Configuration -- Spring2.0\xE5\x8F\xAF\xE6\x89\xA9\xE5\xB1\x95XML\xE9\x85\x8D\xE7\xBD\xAE\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:141:\"http://jeff.familyyu.net/2007/08/23/cxfcxf%e5%bd%93%e4%b8%ad%e7%9a%84configuration-spring2-0%e5%8f%af%e6%89%a9%e5%b1%95xml%e9%85%8d%e7%bd%ae/\";}i:5;a:4:{s:2:\"ID\";s:2:\"13\";s:10:\"post_title\";s:34:\"[CXF]CXF\xE4\xB8\xADServiceInfo\xE7\x9A\x84\xE7\xBB\x93\xE6\x9E\x84\xE5\x9B\xBE\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:99:\"http://jeff.familyyu.net/2007/08/16/cxfcxf%e4%b8%adserviceinfo%e7%9a%84%e7%bb%93%e6%9e%84%e5%9b%be/\";}i:6;a:4:{s:2:\"ID\";s:2:\"17\";s:10:\"post_title\";s:30:\"[CXF]\xE4\xB8\x80\xE5\x8F\xA5\xE8\xAF\x9D\xE6\xA6\x82\xE6\x8B\xACApache CXF\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:95:\"http://jeff.familyyu.net/2007/07/16/cxf%e4%b8%80%e5%8f%a5%e8%af%9d%e6%a6%82%e6%8b%acapache-cxf/\";}i:7;a:4:{s:2:\"ID\";s:2:\"19\";s:10:\"post_title\";s:38:\"[CXF]CXF\xE4\xB8\xADDynamicProxy\xE6\xA8\xA1\xE5\xBC\x8F\xE7\x9A\x84\xE5\xBA\x94\xE7\x94\xA8\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:109:\"http://jeff.familyyu.net/2007/07/15/cxfcxf%e4%b8%addynamicproxy%e6%a8%a1%e5%bc%8f%e7%9a%84%e5%ba%94%e7%94%a8/\";}}"
+  _relation_threshold: "1"
+tags: 
+- Chinese
+- CXF
+- SOA
+- Web Service
+type: post
+status: publish
+---
+<div id="msgcns!4001C604AF3F011!477" class="bvMsg">记得我刚看CXF代码的时候,对其中的BUS这个概念很不清楚..因为提到Bus,好像就总跟传说中的ESB相关联. 问题在于是这个ESB的概念巨模糊,特别是对于刚跨入SOA或者Web service世界里的人来说,那就更不好理解了.&nbsp;
+
+对于企业应用程序开发人员,我们可以把Bus看作是Spring框架中的BeanFactory. BeanFactory是负责管理Bean的,采用的是IOC的模式. 而在CXF中,Bus是管理那些全局配置的.比如你给我一个Namespace是http://schemas.xmlsoap.org/soap/,那么我就知道你需要的是一个SoapBinding. 还比如说我给你一个Transport的Namespace是:http://apache.org/cxf/binding/http,那么我就知道你需要的是一个Http传输. 所以这里的Bus,实质上也就是个资源管理器,你在这里可以注册或者删除一个资源.
+
+Bus同时也是管理着接口和实现的连接.比如说,你的BindingFactory具体的实现是:org.apache.cxf.binding.http.HttpBindingFactory. 所以从某种意义上来说,Bus就是Spring当中的BeanFactory,如果你把BindingFactory等东西看作是一个普通的Bean的话.
+
+在CXF当中,提供了三种方式对Bus的配置:
+1.通过bus-extension.xml
+2.通过API.
+3.通过cxf-extension-*.xml
+
+这里,对于Bus的配置,采取了跟Spring当中类似的做法,也就是采取了IOC的模式.
+其中前2种方法是CXF内部的,也就是说不对spring的东西进行依赖. 第1,2种的方案其实是一样的,只不过一个是通过API,一个是通过xml配置文件而已.
+
+这里我们以Http Binding这个来举例: 看下面这个bus-extension.xml:
+&lt;extensions xmlns="http://cxf.apache.org/bus/extension"&gt;
+&lt;extension class="org.apache.cxf.binding.http.HttpBindingFactory"
+interface="org.apache.cxf.binding.BindingFactory" deferred="true"&gt;
+&lt;namespace&gt;http://apache.org/cxf/binding/http&lt;/namespace&gt;
+&lt;/extension&gt;
+&lt;/extensions&gt;
+
+其中,CXF当中存在了一系列的类,来负责解析,来配置这个Bus. 参与的类有:
+Extension: 也就是Model
+ExtensionManager: 负责取某个具体的Extension.
+ExtensionFragmentParser: 负责解析bus-extension.xml的文件.
+ExtensionManagerBus: CXF中bus-extension配置的Bus.其实也就是负责从bus-extension.xml文件中构建成Bus.注意,这里他也支持lazy-initialization的配置. 可以从deferred="true"看出.
+
+在CXF当中,有两种方式来初始化Bus,一是通过CXF自带的bus-extension.xml,另外一个是通过跟spring相关的cxf-extension-*.xml. 那么这里呢,有个两个类: 一是CXFBusFactory是负责从bus-extension.xml来初始化Bus;二是SpringBusFactory负责从cxf-extension-*.xml来初始化Bus.在这里稍微一提的是,通过Spring来配置Bus的时候,一般是有个META-INF/cxf/cxf.extension,然后在cxf.extension第一行来指定是在哪个位置存放你的xml配置文件.
+
+其实,在CXF中,跟spring的整合是很好的,比如说,如果你要通过xml文件来配置endpoint,他本身就是依赖于spring2.0的xml语法.在基于spring2.0 xml语法上做的.  当然了,你可以使用CXF让他不依赖于spring,但那样的话,你就丧失了可以用xml来配置endpoint的一个功能.
+
+</div>

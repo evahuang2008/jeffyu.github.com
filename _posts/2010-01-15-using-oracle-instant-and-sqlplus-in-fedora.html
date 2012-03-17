@@ -1,0 +1,17 @@
+--- 
+layout: post
+title: Using Oracle Instant and Sqlplus in Fedora
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "7181177899397202577"
+  _searchme: "1"
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+tags: 
+- Database
+type: post
+status: publish
+---
+In case you are working against Oracle database, and don't want to install the whole Oracle DB mess, just want to use the sqlplus to connect to an existing db. Then see <a href="http://www.ioncannon.net/system-administration/114/using-oracle-instant-client-and-sqlplus/">this post</a>.<br /><br />I installed                           <a href="http://download.oracle.com/otn/linux/instantclient/112010/oracle-instantclient11.2-basic-11.2.0.1.0-1.i386.rpm" name="file28" class="boldbodylink">oracle-instantclient11.2-basic-11.2.0.1.0-1.i386.rpm</a> and <span class="textA">                         <a href="http://download.oracle.com/otn/linux/instantclient/112010/oracle-instantclient11.2-sqlplus-11.2.0.1.0-1.i386.rpm" name="file34" class="boldbodylink">oracle-instantclient11.2-sqlplus-11.2.0.1.0-1.i386.rpm</a> </span> in my box. (Fedora 10)<br /><br />Once you connect it successfully. simply run:<br /><blockquote>select table_name from tabs;<br /></blockquote> to show the tables from your connected database.

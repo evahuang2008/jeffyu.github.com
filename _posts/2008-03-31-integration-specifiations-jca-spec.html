@@ -1,0 +1,18 @@
+--- 
+layout: post
+title: Integration Specifiations - JCA spec
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "535389004677429135"
+  _searchme: "1"
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+tags: 
+- Java
+- SOA
+type: post
+status: publish
+---
+In this series, I am going to talk about three Java Specifications, they are JCA, JBI, JMS spec. I would say these three specs are all for integrating with exsiting legacy system, such as Enterprise Information System(EIS).<br /><br />Firstly, lets see what JCA spec is about. Before the JCA spec was introduced, the vendors were using their own proprietary API to do the integration, and it was non-portable, I mean, switch from different Application Servers.<br /><br />So here comes the specification that tries to build a standard API to solve the portable problem as JavaEE did. The JCA spec is consist of two participants. one is Application Server Vendor, the other is Resource Adapter provider.<br /><br />For the application server vendor, most part of job is to support the resource adapter deployment. so I will examine the spec from resource adapter provider's perspective.<br /><br />Here is the list that resource adapter needs to accomplish, it falls two main buckets:<br /><br />1. Outbound Connection. (outside systems initiate data request to your system).<br /><ul><li>   1). Connection Management Contract</li><li>   2). Transaction Management Contract</li><li>   3). Security Management Contract</li></ul>2. Inbound Connection. (your system initiates data request to other systems)<br /><ul><li>   1). Lifecycle Management Contract.</li><li>   2). Message Inflow Contract.</li></ul>It seems that JCA spec would solve the integration against legacy systems, the truth is that the JCA spec is  designed to support the traditional request-response model, but fails to support complex long running transactions and integrations scenarios, because most of integration scenarios like to support it in asynchronous way.<br /><br />So here comes to JBI spec that tries to rescue, which I am going to describe in next entry....<br /><br />References<br />[1] <a href="http://www.javaworld.com/javaworld/jw-11-2001/jw-1121-jca.html?page=1">connect the enterprise with JCA.</a>

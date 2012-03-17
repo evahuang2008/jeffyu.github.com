@@ -1,0 +1,36 @@
+--- 
+layout: post
+title: This is the way to install software, are you using it?
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "8431568852144514736"
+  _searchme: "1"
+  _edit_last: "1"
+  _efficient_related_posts: "a:10:{i:0;a:4:{s:2:\"ID\";s:3:\"264\";s:10:\"post_title\";s:47:\"Install VirtualBox and Chrome beta in Fedora 10\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:84:\"http://jeff.familyyu.net/2009/12/12/install-virtualbox-and-chrome-beta-in-fedora-10/\";}i:1;a:4:{s:2:\"ID\";s:3:\"231\";s:10:\"post_title\";s:27:\"Fedora environment setting.\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:63:\"http://jeff.familyyu.net/2009/07/08/fedora-environment-setting/\";}i:2;a:4:{s:2:\"ID\";s:3:\"228\";s:10:\"post_title\";s:40:\"Fedora 10 \xE4\xBD\xBF\xE7\x94\xA8NetworkManager\xE9\x85\x8D\xE7\xBD\xAEADSL\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:101:\"http://jeff.familyyu.net/2009/06/03/fedora-10-%e4%bd%bf%e7%94%a8networkmanager%e9%85%8d%e7%bd%aeadsl/\";}i:3;a:4:{s:2:\"ID\";s:3:\"220\";s:10:\"post_title\";s:45:\"How to fix \"Lock Assertion Failure\" in Fedora\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:80:\"http://jeff.familyyu.net/2008/10/08/how-to-fix-lock-assertion-failure-in-fedora/\";}i:4;a:4:{s:2:\"ID\";s:3:\"207\";s:10:\"post_title\";s:28:\"Install Firefox3 in Fedora8.\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:64:\"http://jeff.familyyu.net/2008/06/18/install-firefox3-in-fedora8/\";}i:5;a:4:{s:2:\"ID\";s:3:\"205\";s:10:\"post_title\";s:37:\"Fedora8 in Lenovo T61P with Projector\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:74:\"http://jeff.familyyu.net/2008/06/17/fedora8-in-lenovo-t61p-with-projector/\";}i:6;a:4:{s:2:\"ID\";s:3:\"203\";s:10:\"post_title\";s:44:\"Postgresql installation/connection in Fedora\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:80:\"http://jeff.familyyu.net/2008/05/19/postgresql-installationconnection-in-fedora/\";}i:7;a:4:{s:2:\"ID\";s:3:\"202\";s:10:\"post_title\";s:34:\"Using wireless in Fedora8 for T61P\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:71:\"http://jeff.familyyu.net/2008/05/05/using-wireless-in-fedora8-for-t61p/\";}i:8;a:4:{s:2:\"ID\";s:3:\"201\";s:10:\"post_title\";s:26:\"My Fedora8 Roadmap on T61P\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:63:\"http://jeff.familyyu.net/2008/05/01/my-fedora8-roadmap-on-t61p/\";}i:9;a:4:{s:2:\"ID\";s:3:\"200\";s:10:\"post_title\";s:34:\"Dell D820 and Lenovo ThinkPad T61P\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:71:\"http://jeff.familyyu.net/2008/05/01/dell-d820-and-lenovo-thinkpad-t61p/\";}}"
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+  _relation_threshold: "1"
+tags: 
+- Fedora
+- Maven
+- OS
+- Thoughts
+- Ubuntu
+type: post
+status: publish
+---
+I know it is a bit later to write an entry about this installing way, you know, I am always a bit later than it should be. ;(. anyway, it is better than never.:)
+
+If you read my blog, you might know I am using the Ubuntu these days, and I am comfortable with the "apt-get" utility (actually, it is from the Debian distro) to install the software that I want, I think this way is far better than the old way, which needs you download the software into your local disk and install it. In Ubuntu, if you need to install a software, lets say it called "eva", you just simply run the command: sudo apt-get install eva. and then it will download and install from the internet. It doesn't need you to find the eva in the internet.
+
+Today, I am trying to use the fedora distro, and I found there is an similar utility called "yum", which is "apt-get" in Ubuntu. Suddenly, I think of the "features" module in the <a href="http://servicemix.apache.org">Apache Servicemix</a> <a href="http://servicemix.apache.org/SMX4KNL/index.html"> Kernel</a>, it uses the similar way to install the feature, such as NMR feature. Actually, I can't say it is belong to the servicemix functionality, it stems from the OSGi, which has an OBR (OSGi Bundle Repository).
+
+Software is quite different from other commodities, it is very nature for us to see a software with a version, but it is not common for us to have a version with other commodities. The stuff with version also means it changes a lot and very frequent. it means you need to update the software from time to time to make it up-to-date, for the security or functionality sake.  The other aspect of software is dependency, the softwares are connected, most of time they are not isolated. So here comes the "dependency" issue for the software library.
+
+<a href="http://maven.apache.org">Apache Maven</a> is famous on resolving the "dependency" issue, it introduces the "pom.xml" file, which you can declare the repository and the library that you used in your project.
+
+So back to the "apt-get" utility or "yum" utility in linux distro, it typically has a config file which contains the repository url, take ubuntu for example, it is in the "/etc/apt/sources.list". You can add/update the repository url, which contains the packages or softwares. if you need to install/upgrade/remove a software, simply running below commands:
+<pre> apt-get install/upgrade/remove "softwareName"</pre>
+but this should be happening that your computer are connected..

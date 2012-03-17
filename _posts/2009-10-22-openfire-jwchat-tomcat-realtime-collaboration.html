@@ -1,0 +1,32 @@
+--- 
+layout: post
+title: Openfire + jwchat + Tomcat = Realtime collaboration
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "1711211538153749981"
+  _searchme: "1"
+  _edit_last: "1"
+  _efficient_related_posts: a:0:{}
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+  _relation_threshold: ""
+tags: 
+- Chinese
+- Java
+- jwchat
+- Openfire
+type: post
+status: publish
+---
+If you are building a web application, you might need customers use IM client to get to you easily, and can communicate with you on real time. Then I would recommend the <a href="http://www.igniterealtime.org/projects/openfire/index.jsp">Openfire</a> (IM server) +<a href="http://blog.jwchat.org/jwchat/"> jwchat</a> (web IM) to build your real time collaboration. All of these two are open source. Openfire also has its enterprise edition.
+
+Following are two links about how to setup these two. (both of them are written in Chinese).
+
+1. <a href="http://www.javaeye.com/topic/154697?page=1">构建 基于openfire + jwchat 的 WEB IM</a>
+2. <a href="http://www.cnblogs.com/bluespot/archive/2008/07/17/1243164.html">Openfire+jwchat linux 下安装记录</a>
+
+I am using the Openfire 3.6.4. But the steps are the same as before.
+
+Update (Oct-24-2009), if you want to build your own web IM to communicate with Jabber server, then you'd better check out the <a href="http://blog.jwchat.org/jsjac/">JSJAC library</a>. One common issue due to the XMLHttpRequest is that is unable to get resource across the domain. Good news is that you could either <a href="http://www.enavigo.com/2008/10/14/setting-up-jsjac-with-openfire-352/">use the Apache mod_proxy or url rewrite to do so</a>, or you deploy a JHB servlet like what jwchat war did.

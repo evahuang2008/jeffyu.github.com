@@ -1,0 +1,32 @@
+--- 
+layout: post
+title: Make XMMS show chinese font correctly.
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "94759384279566040"
+  _searchme: "1"
+  _edit_last: "1"
+  _efficient_related_posts: a:7:{i:0;a:4:{s:2:"ID";s:3:"189";s:10:"post_title";s:54:"This is the way to install software, are you using it?";s:7:"matches";s:1:"1";s:9:"permalink";s:89:"http://jeff.familyyu.net/2008/03/24/this-is-the-way-to-install-software-are-you-using-it/";}i:1;a:4:{s:2:"ID";s:3:"188";s:10:"post_title";s:22:"Ubuntu Tips - Part one";s:7:"matches";s:1:"1";s:9:"permalink";s:57:"http://jeff.familyyu.net/2008/03/20/ubuntu-tips-part-one/";}i:2;a:4:{s:2:"ID";s:3:"187";s:10:"post_title";s:27:"Make voice input correctly.";s:7:"matches";s:1:"1";s:9:"permalink";s:63:"http://jeff.familyyu.net/2008/03/17/make-voice-input-correctly/";}i:3;a:4:{s:2:"ID";s:3:"186";s:10:"post_title";s:19:"Log in QQ in Ubuntu";s:7:"matches";s:1:"1";s:9:"permalink";s:56:"http://jeff.familyyu.net/2008/03/17/log-in-qq-in-ubuntu/";}i:4;a:4:{s:2:"ID";s:3:"185";s:10:"post_title";s:23:"Install amule in Ubuntu";s:7:"matches";s:1:"1";s:9:"permalink";s:60:"http://jeff.familyyu.net/2008/03/16/install-amule-in-ubuntu/";}i:5;a:4:{s:2:"ID";s:3:"184";s:10:"post_title";s:52:"Multiple sounds can exist at same time in Ubuntu7.10";s:7:"matches";s:1:"1";s:9:"permalink";s:89:"http://jeff.familyyu.net/2008/03/15/multiple-sounds-can-exist-at-same-time-in-ubuntu7-10/";}i:6;a:4:{s:2:"ID";s:3:"182";s:10:"post_title";s:33:"Install Mplayer in the Ubuntu7.10";s:7:"matches";s:1:"1";s:9:"permalink";s:70:"http://jeff.familyyu.net/2008/03/14/install-mplayer-in-the-ubuntu7-10/";}}
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+  _relation_threshold: "1"
+tags: 
+- OS
+- Ubuntu
+type: post
+status: publish
+---
+Below is the steps that work for me, which is Ubuntu7.10.
+
+1. Create a .gtkrc.mine file with following content:
+<pre># $(gtkconfigdir)/gtkrc.zh_CN## This file defines the fontsets for Chinese language (zh) using# the simplified chinese standard GuoBiao as in mainland China (CN)## 1999, Pablo Saratxaga #
+
+style "gtk-default-zh-cn" {fontset = "-adobe-helvetica-medium-r-normal--12-*-*-*-*-*-iso8859-1,-*-*-medium-r-normal--16-*-*-*-*-*-gb2312.1980-0,*-r-*"}class "GtkWidget" style "gtk-default-zh-cn"</pre>
+2. sudo apt-get install xmms-mpg123-ja
+
+3. Set the XMMS font as:
+<pre> -adobe-helvetica-medium-r-normal--12-*-*-*-*-*-iso8859-1,           -*-*-medium-r-normal--16-*-*-*-*-*-gb2312.1980-0,*-r-*</pre>
+Reference:
+1. <a href="http://forum.ubuntu.org.cn/about10340-0.html">http://forum.ubuntu.org.cn/about10340-0.html</a>

@@ -1,0 +1,51 @@
+--- 
+layout: post
+title: Postgresql installation/connection in Fedora
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "6323945388521259528"
+  _searchme: "1"
+  _edit_last: "1"
+  _efficient_related_posts: "a:10:{i:0;a:4:{s:2:\"ID\";s:3:\"264\";s:10:\"post_title\";s:47:\"Install VirtualBox and Chrome beta in Fedora 10\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:84:\"http://jeff.familyyu.net/2009/12/12/install-virtualbox-and-chrome-beta-in-fedora-10/\";}i:1;a:4:{s:2:\"ID\";s:3:\"231\";s:10:\"post_title\";s:27:\"Fedora environment setting.\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:63:\"http://jeff.familyyu.net/2009/07/08/fedora-environment-setting/\";}i:2;a:4:{s:2:\"ID\";s:3:\"228\";s:10:\"post_title\";s:40:\"Fedora 10 \xE4\xBD\xBF\xE7\x94\xA8NetworkManager\xE9\x85\x8D\xE7\xBD\xAEADSL\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:101:\"http://jeff.familyyu.net/2009/06/03/fedora-10-%e4%bd%bf%e7%94%a8networkmanager%e9%85%8d%e7%bd%aeadsl/\";}i:3;a:4:{s:2:\"ID\";s:3:\"220\";s:10:\"post_title\";s:45:\"How to fix \"Lock Assertion Failure\" in Fedora\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:80:\"http://jeff.familyyu.net/2008/10/08/how-to-fix-lock-assertion-failure-in-fedora/\";}i:4;a:4:{s:2:\"ID\";s:3:\"207\";s:10:\"post_title\";s:28:\"Install Firefox3 in Fedora8.\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:64:\"http://jeff.familyyu.net/2008/06/18/install-firefox3-in-fedora8/\";}i:5;a:4:{s:2:\"ID\";s:3:\"205\";s:10:\"post_title\";s:37:\"Fedora8 in Lenovo T61P with Projector\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:74:\"http://jeff.familyyu.net/2008/06/17/fedora8-in-lenovo-t61p-with-projector/\";}i:6;a:4:{s:2:\"ID\";s:3:\"202\";s:10:\"post_title\";s:34:\"Using wireless in Fedora8 for T61P\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:71:\"http://jeff.familyyu.net/2008/05/05/using-wireless-in-fedora8-for-t61p/\";}i:7;a:4:{s:2:\"ID\";s:3:\"201\";s:10:\"post_title\";s:26:\"My Fedora8 Roadmap on T61P\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:63:\"http://jeff.familyyu.net/2008/05/01/my-fedora8-roadmap-on-t61p/\";}i:8;a:4:{s:2:\"ID\";s:3:\"200\";s:10:\"post_title\";s:34:\"Dell D820 and Lenovo ThinkPad T61P\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:71:\"http://jeff.familyyu.net/2008/05/01/dell-d820-and-lenovo-thinkpad-t61p/\";}i:9;a:4:{s:2:\"ID\";s:3:\"199\";s:10:\"post_title\";s:30:\"Open source business in Redhat\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:67:\"http://jeff.familyyu.net/2008/04/22/open-source-business-in-redhat/\";}}"
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+  _relation_threshold: "1"
+tags: 
+- Database
+- Fedora
+- OS
+- Postgresql
+type: post
+status: publish
+---
+Because I wan to try the <a href="http://www.jboss.com/products/jbosson">JON 2.0</a>, I gotta have a database, currently the JON supports two databases, Postgres and Oracle. So here I choose the Postgres as it is open source.
+
+I am using the Fedora8, so install the postgres just simply need to run
+<blockquote>yum install postgresql-server</blockquote>
+After I installed the postgres, I created it with following command:
+<blockquote>service postgresql initdb
+service postgresql start</blockquote>
+And then I try to (as reference[1] described)
+<blockquote>createuser -h 127.0.0.1 -p 5432 -U postgres -S -D -R rhqadmin</blockquote>
+it tells me that " FATAL:  Ident authentication failed for user "postgres". This error mostly means you need to update the "pg_hba.conf" file.
+
+try to run
+<blockquote>ps aux | grep postmaster</blockquote>
+to find out where the "pg_hba.conf" located. (Here thanks to illya77 and pilhuhn in #rhq at irc.freenode.net help me solve this problem).
+
+Update the pg_hba.conf  suggested, and then
+
+Edit the postgres host based access configuration file (pg_hba.conf), which typically would be at: /var/lib/pgsql/data/pg_hba.conf
+
+Modify the local line to use "trust" based authentication rather than "identity". Please review the PostgreSQL documentation before making this change and take the security
+<pre>local all  all   trust</pre>
+After that, restart the postgresql to make the change taking effect.
+<blockquote>service postgresql restart</blockquote>
+At last: run
+<blockquote>psql -h localhost -U postgres</blockquote>
+to see if it can log in.
+
+[Reference]
+1. <a href="https://docs.jbosson.redhat.com/confluence/display/JON2/Postgres+Quick+Start+Installation+Guide"> Postgres Quick Start Installation</a>

@@ -1,0 +1,23 @@
+--- 
+layout: post
+title: Hibernate annotation of Map
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "9068116184477227516"
+  _searchme: "1"
+  _edit_last: "1"
+  _efficient_related_posts: a:3:{i:0;a:4:{s:2:"ID";s:3:"213";s:10:"post_title";s:45:"Saving serializable object by using Hibernate";s:7:"matches";s:1:"2";s:9:"permalink";s:82:"http://jeff.familyyu.net/2008/08/04/saving-serializable-object-by-using-hibernate/";}i:1;a:4:{s:2:"ID";s:3:"699";s:10:"post_title";s:44:"Upgrading Hibernate 3.3.2 to Hibernate 4.0.0";s:7:"matches";s:1:"1";s:9:"permalink";s:81:"http://jeff.familyyu.net/2011/09/08/upgrading-hibernate-3-3-2-to-hibernate-4-0-0/";}i:2;a:4:{s:2:"ID";s:3:"263";s:10:"post_title";s:27:"JPA implementation patterns";s:7:"matches";s:1:"1";s:9:"permalink";s:64:"http://jeff.familyyu.net/2009/12/06/jpa-implementation-patterns/";}}
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+  _relation_threshold: "1"
+tags: 
+- Hibernate
+- Java
+- JBoss
+- JPA
+type: post
+status: publish
+---
+If you happen to have a simple Map&lt;String, String&gt; to be mapped by using Hibernate annotation, and don't want to create an object by using List, such as List&lt;Property&gt;, the property contains the key and value member. Then you can use the Hibernate Annotation, "CollectionOfElements", it is hibernate specific, not JPA-specific. Details please refer to <a href="http://i-proving.ca/space/Technologies/Hibernate/Hibernate+Annotation+Examples/Collection+of+Elements">this blog entry</a>, it is well documented.

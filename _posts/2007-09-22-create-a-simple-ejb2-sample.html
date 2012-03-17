@@ -1,0 +1,74 @@
+--- 
+layout: post
+title: Create a simple EJB 2.x sample.
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "4096839380831492062"
+  _searchme: "1"
+  _edit_last: "1"
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  _wp_old_slug: create-a-simple-ejb-sample
+  blogger_blog: jeff.familyyu.net
+  _syntaxhighlighter_encoded: "1"
+tags: 
+- Java
+type: post
+status: publish
+---
+Although I have been developing EJB for almost two years, I havent spent time in investigating the EJB infrastructure, especially in this EJB-anti era.
+Since now I am working on the JCA1.5 stuff, need to pick up the EJB stuff again, and this is a good chance for me to investigate EJB a little more.
+
+1. RemoteObject
+[java]
+public interface GreeterRemote extends EJBObject {
+String greetMe(String user) throws RemoteException;
+}
+[/java]
+2. HomeObject
+[java]
+public interface GreeterHome extends EJBHome {
+GreeterHome create() throws RemoteException, CreateException;
+}
+[/java]
+3. BusinessImpl (SessionBean)
+[java]
+public class GreeterBean implements SessionBean {
+
+private SessionContext sessionContext;
+
+public void ejbActivate() throws EJBException, RemoteException {
+}
+
+public void ejbPassivate() throws EJBException, RemoteException {
+}
+
+public void ejbRemove() throws EJBException, RemoteException {
+}
+
+public void setSessionContext(SessionContext context) throws EJBException, RemoteException {
+this.sessionContext = context;
+}
+
+/**
+* Implement business method.
+*/
+public String greetMe(String user) throws EJBException, RemoteException {
+return &quot;From Server, greetMe by [&quot; + user + &quot;]&quot;;
+}
+}
+[/java]
+4. ejb-jar.xml
+
+5. jboss-ejb-jar.xml (vendor-specific xml config)
+
+6. Package the files, and deploy it to container.
+The jar structure would be:
+|---META-INF
+|-----------/ejb-jar.xml
+|-----------/jboss-ejb-jar.xml
+|----java
+|--------/GreeterRemote.class
+|--------/GreeterHome.class
+|--------/GreeterBean.class

@@ -1,0 +1,108 @@
+--- 
+layout: post
+title: !binary |
+  W0NYRl1DWEbkuK3nmoRJbnRlcmNlcHRvcuaooeW8j+W6lOeUqA==
+
+published: true
+meta: 
+  spaces_a43755b404d273dfcedbd14ccb4f51ab_permalink: http://cid-04001c604af3f011.users.api.live.net/Users(288261576051650577)/Blogs('4001C604AF3F011!102')/Entries('4001C604AF3F011!458')?authkey=X13wC75MXT0%24
+  _searchme: "1"
+  _edit_last: "1"
+  _efficient_related_posts: "a:8:{i:0;a:4:{s:2:\"ID\";s:3:\"272\";s:10:\"post_title\";s:40:\"Apache CXF Web Service Development book.\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:76:\"http://jeff.familyyu.net/2010/02/20/apache-cxf-web-service-development-book/\";}i:1;a:4:{s:2:\"ID\";s:3:\"167\";s:10:\"post_title\";s:30:\"IMS rolled out its 0.1 version\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:67:\"http://jeff.familyyu.net/2007/11/13/ims-rolled-out-its-0-1-version/\";}i:2;a:4:{s:2:\"ID\";s:3:\"146\";s:10:\"post_title\";s:29:\"CXF ServiceInfo Model diagram\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:66:\"http://jeff.familyyu.net/2007/09/06/cxf-serviceinfo-model-diagram/\";}i:3;a:4:{s:2:\"ID\";s:1:\"6\";s:10:\"post_title\";s:53:\"[CXF]CXF\xE4\xB8\xAD\xE7\x9A\x84\xE4\xB8\xA4\xE4\xB8\xAA\xE6\xA6\x82\xE5\xBF\xB5:Invoker & PhaseInterceptor\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:121:\"http://jeff.familyyu.net/2007/08/26/cxfcxf%e4%b8%ad%e7%9a%84%e4%b8%a4%e4%b8%aa%e6%a6%82%e5%bf%b5invoker-phaseinterceptor/\";}i:4;a:4:{s:2:\"ID\";s:2:\"10\";s:10:\"post_title\";s:61:\"[CXF]CXF\xE5\xBD\x93\xE4\xB8\xAD\xE7\x9A\x84Configuration -- Spring2.0\xE5\x8F\xAF\xE6\x89\xA9\xE5\xB1\x95XML\xE9\x85\x8D\xE7\xBD\xAE\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:141:\"http://jeff.familyyu.net/2007/08/23/cxfcxf%e5%bd%93%e4%b8%ad%e7%9a%84configuration-spring2-0%e5%8f%af%e6%89%a9%e5%b1%95xml%e9%85%8d%e7%bd%ae/\";}i:5;a:4:{s:2:\"ID\";s:2:\"11\";s:10:\"post_title\";s:26:\"[CXF]CXF\xE4\xB8\xAD\xE9\x87\x8D\xE8\xA6\x81\xE6\xA6\x82\xE5\xBF\xB5Bus\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:91:\"http://jeff.familyyu.net/2007/08/22/cxfcxf%e4%b8%ad%e9%87%8d%e8%a6%81%e6%a6%82%e5%bf%b5bus/\";}i:6;a:4:{s:2:\"ID\";s:2:\"13\";s:10:\"post_title\";s:34:\"[CXF]CXF\xE4\xB8\xADServiceInfo\xE7\x9A\x84\xE7\xBB\x93\xE6\x9E\x84\xE5\x9B\xBE\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:99:\"http://jeff.familyyu.net/2007/08/16/cxfcxf%e4%b8%adserviceinfo%e7%9a%84%e7%bb%93%e6%9e%84%e5%9b%be/\";}i:7;a:4:{s:2:\"ID\";s:2:\"17\";s:10:\"post_title\";s:30:\"[CXF]\xE4\xB8\x80\xE5\x8F\xA5\xE8\xAF\x9D\xE6\xA6\x82\xE6\x8B\xACApache CXF\";s:7:\"matches\";s:1:\"1\";s:9:\"permalink\";s:95:\"http://jeff.familyyu.net/2007/07/16/cxf%e4%b8%80%e5%8f%a5%e8%af%9d%e6%a6%82%e6%8b%acapache-cxf/\";}}"
+  _relation_threshold: "1"
+tags: 
+- Chinese
+- CXF
+- SOA
+- Web Service
+type: post
+status: publish
+---
+<div id="msgcns!4001C604AF3F011!458" class="bvMsg">先来说说Interceptor模式中各个参与对象的功能和职责:
+Interceptor:
+* Defines an interface for integrating out-of-band services
+Concrete Interceptor:
+* Implements a specific out-of-band service
+* Uses context object to control the concrete framework.
+Dispatcher
+* Allows applications to register and remove concrete interceptors.
+* Dispatches registered concrete interceptor callbacks when event occur
+Context Object
+* Allows services to obtain information from the concrete framework
+* Allows services to control certain behaviour of the concrete framework.&nbsp;
+
+看上去是很好理解的... Dispatcher负责添加和删除Interceptor, Concrete Interceptor通过Context Object获取到具体的上下文内容,去改变值,或者处理业务功能.
+
+现在我们来看下CXF中是怎么使用Interceptor模式的.
+Interceptor (对应Interceptor角色)
+public interface Interceptor&lt;T extends Message&gt; {
+void handleMessage(T message) throws Fault;
+void handleFault(T message);
+}
+在CXF当中,还引入了一个<a href="https://svn.apache.org/repos/asf/incubator/cxf/trunk/api/src/main/java/org/apache/cxf/phase/Phase.java">Phase</a>的概念.相当于说在Interceptor顺序方面加了一个比较大粒度的区别. 比如说,执行的phase顺序为:
+pre-invoke, invoke, post-invoke. 具体的Phase优先级可以参考<a href="https://svn.apache.org/repos/asf/incubator/cxf/trunk/rt/core/src/main/java/org/apache/cxf/phase/PhaseManagerImpl.java">PhaseManagerImpl</a>看看到底有哪些Phases.
+
+所以说,在CXF当中,真正对应(Interceptor角色)的应该是<a href="https://svn.apache.org/repos/asf/incubator/cxf/trunk/api/src/main/java/org/apache/cxf/phase/PhaseInterceptor.java">PhaseInterceptor</a>
+对于每个concrete Interceptor来讲,它一定要指定自己是属于哪个Phase.
+这里我们以<a href="https://svn.apache.org/repos/asf/incubator/cxf/trunk/rt/core/src/main/java/org/apache/cxf/interceptor/MessageSenderInterceptor.java">MessageSenderInterceptor</a> 来作为Concrete Interceptor的例子.
+
+<a href="https://svn.apache.org/repos/asf/incubator/cxf/trunk/api/src/main/java/org/apache/cxf/message/Message.java">Message</a> (对应Context Object角色),从Message这里你可以获取到你所要的信息,可以说所有的内容都可以从Message里面直接或者间接取到.
+
+<a href="https://svn.apache.org/repos/asf/incubator/cxf/trunk/api/src/main/java/org/apache/cxf/interceptor/InterceptorChain.java">InterceptorChain</a> (对应Dispatcher角色),在InterceptorChain里,我们可以进行增加,删除一个Concrete Interceptor.同时,也负责根据Phase和ID的顺序来执行各个Interceptor,具体的你可以参考<a href="https://svn.apache.org/repos/asf/incubator/cxf/trunk/api/src/main/java/org/apache/cxf/phase/PhaseInterceptorChain.java">PhaseInterceptorChain</a>的实现.
+我觉得这个InterceptorChain名字起得挺好的,因为如果你看它实现的话,里面用的就是链表来实现顺序的..
+
+虽然我们上面把各个角色都介绍完了,但是当你看CXF的代码时候,你不会看到用InterceptorChain来注册具体实现的Interceptor,那么又是谁来充当这个注册器呢.
+在CXF中,还有个类,叫做<a href="https://svn.apache.org/repos/asf/incubator/cxf/trunk/api/src/main/java/org/apache/cxf/interceptor/InterceptorProvider.java">InterceptorProvider</a>,根据名字,我们可以看出,凡是实现这个接口的,都有可能提供Interceptor,也就是说,Interceptor的注册器.
+我们来看看有哪些类实现这个接口.
+BUS, Client, Service, Binding, Endpoint. 这些地方都有可能提供他们的Interceptor. 记住我们的concrete interceptor实际上就是一个小模块的逻辑处理,比如我有可能是soapBinding,那么我就需要做一些soap binding所需要的特殊逻辑,这个时候,我们就需要在binding这个扩展点加入我们所需要的interceptors来处理. 一般来说,在InterceptorProvider里面注册的时候是没有顺序的. 我们会通过PhaseChainCache来对它构造出一个PhaseInterceptorChain. 然后再来调用doIntercept(Message)方法: 比如如下的代码.(摘自ClientImpl.java)
+
+protected PhaseInterceptorChain setupInterceptorChain(Endpoint endpoint) {
+
+PhaseManager pm = bus.getExtension(PhaseManager.class);
+
+List&lt;Interceptor&gt; i1 = bus.getOutInterceptors();
+if (LOG.isLoggable(Level.FINE)) {
+LOG.fine("Interceptors contributed by bus: " + i1);
+}
+List&lt;Interceptor&gt; i2 = endpoint.getOutInterceptors();
+if (LOG.isLoggable(Level.FINE)) {
+LOG.fine("Interceptors contributed by endpoint: " + i2);
+}
+List&lt;Interceptor&gt; i3 = getOutInterceptors();
+if (LOG.isLoggable(Level.FINE)) {
+LOG.fine("Interceptors contributed by client: " + i3);
+}
+List&lt;Interceptor&gt; i4 = endpoint.getBinding().getOutInterceptors();
+if (LOG.isLoggable(Level.FINE)) {
+LOG.fine("Interceptors contributed by binding: " + i4);
+}
+return outboundChainCache.get(pm.getOutPhases(), i1, i2, i3, i4);
+}
+
+PhaseInterceptorChain chain = setupInterceptorChain(endpoint);
+message.setInterceptorChain(chain);
+modifyChain(chain, requestContext);
+chain.setFaultObserver(outFaultObserver);
+// setup conduit selector
+prepareConduitSelector(message);
+// execute chain
+chain.doIntercept(message);
+
+说到这里, 还需要提一点的就是: 在CXF中,还引入了另外一个概念: <a href="https://svn.apache.org/repos/asf/incubator/cxf/trunk/api/src/main/java/org/apache/cxf/feature/AbstractFeature.java">AbstractFeature</a>, 这个我是从我同事willem的blog中知道了这个概念. 可能对于某个interceptor来说, 他要在IN, OUT, FAULTIN, FAULTOUT都需要这个interceptor,那么用feature.
+
+* A Feature is something that is able to customize a Server, Client, or Bus, typically adding capabilities. For instance, there may be a LoggingFeature which configures one of the above to log each of their messages.
+By default the initialize methods all delegate to initializeProvider(InterceptorProvider).  If you're simply adding interceptors to a Server, Client, or Bus, this allows you to add them easily.
+
+现在我们再来理一理CXF当中的Interceptor的关系.
+InterceptorProvider 有 IN/OUT 两个 Interceptor的集合.
+IN/OUT Interceptor有他固定的PhaseInterceptor.
+某一个具体的PhaseInterceptor有他所对应的具体Interceptors.
+<a href="http://willem.bokeland.com/blog/794/6089/2007/06/30/209718"><span style="font-size: small;"><span style="font-size: x-small;"> </span></span></a>
+关于CXF中的Interceptor可以参考我同事willem写的两篇文章：
+<a href="http://willem.bokeland.com/blog/794/6089/2007/06/30/209717"><span style="font-size: small;"><span style="font-size: x-small;"><span style="text-decoration: underline;">http://willem.bokeland.com/blog/794/6089/2007/06/30/209717</span></span></span></a>
+<a href="http://willem.bokeland.com/blog/794/6089/2007/06/30/209718"><span style="font-size: small;"><span style="font-size: x-small;">http://willem.bokeland.com/blog/794/6089/2007/06/30/209718</span></span></a>
+------------
+参考文档:
+&lt;Pattern oriented software architecture volume2&gt;
+
+</div>

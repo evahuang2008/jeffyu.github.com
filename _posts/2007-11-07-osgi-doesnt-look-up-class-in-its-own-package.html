@@ -1,0 +1,18 @@
+--- 
+layout: post
+title: OSGI doesn't look up class in its own package.
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "6262428081048861330"
+  _searchme: "1"
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+tags: 
+- Java
+- OSGi
+type: post
+status: publish
+---
+Today I am trying the sample code from <a href="http://www.eclipsezone.com/eclipse/forums/t90796.html">this article.</a>.<br /><br />Say, I am exporting one package as: com.example.movies. Then I write another bundle called FlatMovies.jar that contains a class inside com.example.movies(say package as the exported one).<br /><br />In this situation, I would get a ClassNotFoundException when I try to start the FlatMovies bundle..<br /><br />Not sure why, here make it a note.

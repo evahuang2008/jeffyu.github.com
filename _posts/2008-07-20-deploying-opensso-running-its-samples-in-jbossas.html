@@ -1,0 +1,68 @@
+--- 
+layout: post
+title: Deploying OpenSSO & Running its samples in JBossAS
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "5866993197498198617"
+  _searchme: "1"
+  _edit_last: "1"
+  _efficient_related_posts: a:1:{i:0;a:4:{s:2:"ID";s:3:"211";s:10:"post_title";s:27:"OpenSSO installation blogs.";s:7:"matches";s:1:"1";s:9:"permalink";s:63:"http://jeff.familyyu.net/2008/07/22/opensso-installation-blogs/";}}
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+  _relation_threshold: "1"
+tags: 
+- Java
+- JBoss
+- OpenSSO
+type: post
+status: publish
+---
+It is a little bit tricky for me to get installed the OpenSSO against JBossAS4.x, So here I'd like to describe the steps that I am doing, if others new to opensso, hopefully it might be helpful for them.
+
+<span style="text-decoration: underline;">Deploying opensso in the JBossAS</span>
+
+1. Download the opensso build 4.5 zip from the <a href="https://opensso.dev.java.net/public/use/index.html">opensso download page</a>. (I validated build4 and 4.5 against JBossAS4.2.2.GA)
+
+2. Following the <a href="http://download.java.net/general/opensso/stable/openssov1-build4/B4-ReleaseNotes.html">release note</a> of deploying the opensso.war in the JBossAS4.x.
+
+3. You will also need to increase the Permsize in $JBoss/bin/run.conf by adding following option in the JAVA_OPTS line.
+<blockquote>-XX:MaxPermSize=512m in the&nbsp;</blockquote>
+4. Then start the $JBoss/bin/run.sh, you should be able to access its admin page in http://yourdomain:8080/opensso. (OpenSSO doesn't work well with the localhost, so you should specify a full qualified domain for it)
+
+5. And then you can have a default configuration from http://yourdomain:8080/opensso link.
+
+6. After you have the default configuration, you should be able to login the system by using: amAdmin, amLdapuser and with the password that you set before.
+
+OK, so above the steps to deploy the opensso.war, not much tricky here. And then, I am going to run an example that based on opensso sdk. (openssoclientsdk.jar).
+
+<span style="text-decoration: underline;">Running the example:</span>
+
+In the opensso directory that you extracted from the opensso.zip, you can see a sub-folder is: samples.
+
+1) Go to the $samples, you will see the fam-client.zip. (Because sun's commercial product name is Federation Acess Manager, that is what the fam stands for.)
+2) Unzip that fam-client.zip, you will see it contains sdk and war folders
+3) Go to the sdk folder. run the 'chmod 755 scripts/*.sh' to make the script runnable.
+4) run: 'scripts/compile-samples.sh' to build the sample code.
+5) run: 'scripts/setup.sh', (This is to configure the AMConfig.properties.)
+<blockquote>Debug directory (make sure this directory exists): /var/local/tmp (This can be other places)
+Password of the server application: opensso1 (Not sure this one, I just input a random one.)
+Protocol of the server: http
+Host name of the server: putian.nay.redhat.com
+Port of the server: 8080
+Server's deployment URI: opensso
+Naming URL (hit enter to accept default value, http://putian.nay.redhat.com:8080/opensso/namingservice):&nbsp;</blockquote>
+6) run: "scripts/Login.sh", you will see:
+<blockquote>Realm (e.g. /): opensso
+Login module name (e.g. DataStore or LDAP): DataStore
+Login locale (e.g. en_US or fr_FR): en_US
+DataStore: Obtained login context
+User Name:amAdmin
+Password:&nbsp;</blockquote>
+Input your password, it should show you like following:
+<blockquote>Login succeeded.
+Logged Out!!&nbsp;</blockquote>
+Well, this example shows you how to do the authentication by using openssoclientsdk.jar.
+
+Note: <span style="color: #ff0000;">I am validating opensso build4 and 4.5 against JBossAS4.2.2.GA. If you have deployed the opensso.war in the JBossESB server, it has a known issue at https://jira.jboss.org/jira/browse/SOA-731</span>

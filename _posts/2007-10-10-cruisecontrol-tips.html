@@ -1,0 +1,17 @@
+--- 
+layout: post
+title: CruiseControl Tips
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "2229641357976380424"
+  _searchme: "1"
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+tags: 
+- Java
+type: post
+status: publish
+---
+Out Of Memory Solution:<br /><br />1. Downloaded saxon6-5-5.zip from saxon.sourceforge.net<br />2. Extracted saxon.jar from the zip file<br />3. Added saxon.jar to CC lib dir<br />4. Removed xalan-2.6.0.jar from CC lib dir<br />5. Edited CRUISE_PATH in cruisecontrol.sh to add saxon.jar to classpath<br />-----------------------------------------------------------------------------------------------------<br />FAQ link:<br /><br />http://confluence.public.thoughtworks.org/display/CC/Frequently+Asked+Questions#FrequentlyAskedQuestions-faq4<br />-----------------------------------------------------------------------------------------<br /><br />Q: I am running some jUnit tests, and the results don't show up in cruise control's JSP. What's going on?<br /><br />A: There are a couple things that the buildresults.jsp needs. First, your jUnit results need to be xml formatted. You can set this by adding  element, within your jUnit ANT task. Second, make sure that you merge your unit test results with cruise control's own xml report of the build. Do this in the  section of your config file, like this:<br /><br />if you had one file:<br /><br /> &amp;lt log ...&amp;gt<br />    &amp;lt merge file=""/&amp;gt<br /> &amp;lt /log &amp;gt<br /><br />and if you had a directory of files:<br /><br />&amp;lt log ...&amp;gt<br />    &amp;lt merge dir=""/&amp;gt<br /> &amp;lt/log &amp;gt<br /><br />Cruise control may also report that you don't have any unit tests if they failed to build and never got to the point of being run in your junit task.<br /><br />Finally, if you are using a custom XML format and not the default Ant one, you will need to update unittests.xsl as appropriate<br />------------------------------------------------------------------------------------------<br />Code coverage solution<br /><br />We link to it directly by adding something similar to the following to buildresults.jsp:<br />&amp;lt cruisecontrol:artifactsLink &amp;gt<br />  <a href='../jcoverage'>JCoverage Report</a><br />&amp;lt /cruisecontrol:artifactsLink &amp;gt<br />Er, I think that"s right. In any case, you should just be able to follow the default "Artifacts" link from the buildresults page, right? And if it helps, the line in your config.xml that publishes the jcoverage dir should be similar to the following: <br /><br />-----------------------------------------------------------------------------------------------------<br />General CruiseControl Add Button (Tab) solution:<br /><br />http://sourceforge.net/mailarchive/message.php?msg_id=15825063

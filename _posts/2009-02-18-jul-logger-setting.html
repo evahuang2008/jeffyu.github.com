@@ -1,0 +1,17 @@
+--- 
+layout: post
+title: JUL Logger setting
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "6702702577194002697"
+  _searchme: "1"
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+tags: 
+- Java
+type: post
+status: publish
+---
+Well, first I have to say that the log in Java is kind of messy, why? we got too many choices. say log4j, jakarta common logging, slf etc. And as comes with the JDK 1.5, we have the java.util.logging along with this. Come on, it is just a simple log, what the hell do we need to have these many libraries.<br /><br />Anyway, avoid the jar conflictions, the simplest scenario would be to pick up the java.util.logging, as it has been shipped within JDK. If you are wondering where/how to update the logging.properties file, (like log4j.properties in log4j), then here we've got <a href="http://www.ociweb.com/mark/programming/JavaLogging.html">a good article</a> [1] can help you.<br /><br />HTH.<br /><br />[1] In this article, for the 2nd method of updating logging.properties file, which should be located in the $JDK_HOME/jre/lib/logging.properties.

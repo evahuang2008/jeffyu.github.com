@@ -1,0 +1,183 @@
+--- 
+layout: post
+title: Getting Started with jBPM 4.0 (Part II)
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "7070338884064611421"
+  _searchme: "1"
+  _edit_last: "1"
+  _efficient_related_posts: a:6:{i:0;a:4:{s:2:"ID";s:3:"243";s:10:"post_title";s:38:"jBPM 4.0 restful service introduction.";s:7:"matches";s:1:"1";s:9:"permalink";s:74:"http://jeff.familyyu.net/2009/08/08/jbpm-4-0-restful-service-introduction/";}i:1;a:4:{s:2:"ID";s:3:"239";s:10:"post_title";s:21:"Updates on JBoss ESB.";s:7:"matches";s:1:"1";s:9:"permalink";s:57:"http://jeff.familyyu.net/2009/07/22/updates-on-jboss-esb/";}i:2;a:4:{s:2:"ID";s:3:"236";s:10:"post_title";s:39:"Getting Started with jBPM 4.0 (Part IV)";s:7:"matches";s:1:"1";s:9:"permalink";s:74:"http://jeff.familyyu.net/2009/07/19/getting-started-with-jbpm-4-0-part-iv/";}i:3;a:4:{s:2:"ID";s:3:"234";s:10:"post_title";s:40:"Getting Started with jBPM 4.0 (Part III)";s:7:"matches";s:1:"1";s:9:"permalink";s:75:"http://jeff.familyyu.net/2009/07/12/getting-started-with-jbpm-4-0-part-iii/";}i:4;a:4:{s:2:"ID";s:3:"232";s:10:"post_title";s:41:"Getting Started with jBPM 4.0 - (Part I )";s:7:"matches";s:1:"1";s:9:"permalink";s:73:"http://jeff.familyyu.net/2009/07/11/getting-started-with-jbpm-4-0-part-i/";}i:5;a:4:{s:2:"ID";s:3:"229";s:10:"post_title";s:27:"jBPM4.0 framework exploring";s:7:"matches";s:1:"1";s:9:"permalink";s:64:"http://jeff.familyyu.net/2009/06/29/jbpm4-0-framework-exploring/";}}
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+  _syntaxhighlighter_encoded: "1"
+  _relation_threshold: "1"
+tags: 
+- BPM
+- Java
+- JBoss
+- jBPM
+type: post
+status: publish
+---
+In this blog entry, we are going to use the eclipse GUI to build a helloworld process, and then write a unit test to verify the process.
+
+Firstly, I assumed that you've successfully installed the eclipse GUI, if you haven't done so, please refer to the <a href="http://jeffyuchang.blogspot.com/2009/07/getting-started-with-jbpm-40.html">first Part blog entry</a>.
+
+<span style="text-decoration: underline;"> Create Project and Process Definition</span>
+
+Then, we will create a java project, I used the following project layout(maven way).
+<a href="http://jeff.familyyu.net/wp-content/uploads/2011/01/jbpm-helloworld-layout1.gif?w=300"><img src="http://jeff.familyyu.net/wp-content/uploads/2011/01/jbpm-helloworld-layout1.gif?w=300" border="0" alt="" /></a>
+we will put the process definition file into the main/resource folder, and the test case &amp; its resources in the src/test folder.
+
+In this helloworld process, we will do the following process scenario.
+we will have a 'java node', to make a request, and then we add the 'review task node', and then if it is 'approved', it will lead to the 'audit state node'.  Of course, we will include the 'start' and the 'end' node in this process, so the finished process image would be like:
+
+<a href="http://jeff.familyyu.net/wp-content/uploads/2011/01/jbpm-helloworld-process.gif"><img src="http://jeff.familyyu.net/wp-content/uploads/2011/01/jbpm-helloworld-process.gif?w=300" border="0" alt="" /></a>
+
+In this process definition, we are using a java node to be the 'request' node, its java code as following:
+
+[java]
+package org.jbpm.helloworld;
+
+public class Println {
+
+public void request() {
+    System.out.println(&quot;--------------------&quot;);
+    System.out.println(&quot;Made a request.....&quot;);
+    System.out.println(&quot;---------------------&quot;);
+}
+}
+[/java]
+
+
+The process definition xml is as following:
+
+[xml]
+&lt;process name=&quot;helloworld&quot; xmlns=&quot;http://jbpm.org/4.0/jpdl&quot;&gt;
+&lt;start  name=&quot;start&quot;&gt;
+  &lt;transition  name=&quot;to request&quot; to=&quot;request&quot;/&gt;
+&lt;/start&gt;
+&lt;end  name=&quot;end&quot;/&gt;
+&lt;java class=&quot;org.jbpm.helloworld.Println&quot;  method=&quot;request&quot; name=&quot;request&quot;&gt;
+  &lt;transition  name=&quot;to review&quot; to=&quot;review&quot;/&gt;
+&lt;/java&gt;
+&lt;task assignee=&quot;alex&quot;  name=&quot;review&quot;&gt;
+  &lt;transition  name=&quot;approved&quot; to=&quot;audit&quot;/&gt;
+&lt;/task&gt;
+&lt;state  name=&quot;audit&quot;&gt;
+  &lt;transition  name=&quot;to end&quot; to=&quot;end&quot;/&gt;
+&lt;/state&gt;
+&lt;/process&gt;
+[/xml]
+
+
+The xml itself is very easy to understand, you might notice that 'g' attribute in your process definition file, that is only used by the Eclipse GUI.
+
+&nbsp;
+
+<span style="text-decoration: underline;"> Verify the process </span>
+
+Once we've finished the process, we want to verify whether it is as same as we expected, with the jBPM 4.0, it is very easy for us to verify it, without deploying it into the container.
+
+With the following 2 steps, we can easily test the process by using API.
+Because the jbpm.jar doesn't include the jbpm.hibernte.cfg.xml and jbpm.cfg.xml, we need to configure it by ourselves for the test purpose. (However, The deployed jbpm in JBoss container has these two files by default)
+<ol>
+	<li>Add the jbpm.hibernate.cfg.xml and jbpm.cfg.xml.</li>
+we put these two files into the src/test/resource folder.
+the jbpm.hibernate.cfg.xml would be like as following:
+
+[xml]
+&lt;hibernate-configuration&gt;
+ &lt;session-factory&gt;
+    &lt;property name=&quot;hibernate.dialect&quot;&gt;org.hibernate.dialect.HSQLDialect&lt;/property&gt;
+    &lt;property name=&quot;hibernate.connection.driver_class&quot;&gt;org.hsqldb.jdbcDriver&lt;/property&gt;
+    &lt;property name=&quot;hibernate.connection.url&quot;&gt;jdbc:hsqldb:mem:.&lt;/property&gt;
+    &lt;property name=&quot;hibernate.connection.username&quot;&gt;sa&lt;/property&gt;
+    &lt;property name=&quot;hibernate.connection.password&quot;&gt;&lt;/property&gt;
+    &lt;property name=&quot;hibernate.hbm2ddl.auto&quot;&gt;create-drop&lt;/property&gt;
+    &lt;property name=&quot;hibernate.format_sql&quot;&gt;true&lt;/property&gt;
+
+    &lt;mapping resource=&quot;jbpm.repository.hbm.xml&quot; /&gt;
+    &lt;mapping resource=&quot;jbpm.execution.hbm.xml&quot; /&gt;
+    &lt;mapping resource=&quot;jbpm.history.hbm.xml&quot; /&gt;
+    &lt;mapping resource=&quot;jbpm.task.hbm.xml&quot; /&gt;
+    &lt;mapping resource=&quot;jbpm.identity.hbm.xml&quot; /&gt;
+
+ &lt;/session-factory&gt;
+&lt;/hibernate-configuration&gt;
+[/xml]
+
+
+and here it is the jbpm.cfg.xml:
+[xml]
+&lt;jbpm-configuration&gt;
+ &lt;import resource=&quot;jbpm.default.cfg.xml&quot; /&gt;
+ &lt;import resource=&quot;jbpm.tx.hibernate.cfg.xml&quot; /&gt;
+ &lt;import resource=&quot;jbpm.jpdl.cfg.xml&quot; /&gt;
+ &lt;import resource=&quot;jbpm.identity.cfg.xml&quot; /&gt;
+&lt;/jbpm-configuration&gt;
+[/xml]
+
+
+&nbsp;
+	<li>Write the test case, which extends the JbpmTestCase</li>
+Now, we are ready to write the process unit test.
+
+[java]
+public class ProcessTest extends JbpmTestCase {
+String deploymentId;
+
+
+public void setUp() throws Exception {
+ super.setUp();
+ deploymentId = repositoryService.createDeployment()
+     .addResourceFromClasspath(&quot;helloworld.jpdl.xml&quot;)
+     .deploy();
+}
+
+public void testProcess() throws Exception {
+ ProcessInstance instance = executionService.startProcessInstanceByKey(&quot;helloworld&quot;);
+ String pid = instance.getId();
+
+ assertTrue(instance.isActive(&quot;review&quot;));
+
+ List tasks = taskService.findPersonalTasks(&quot;alex&quot;);
+ Task task = tasks.get(0);
+ taskService.completeTask(task.getId(), &quot;approved&quot;);
+
+ instance = executionService.findProcessInstanceById(pid);
+ String exeId = instance.findActiveExecutionIn(&quot;audit&quot;).getId();
+ executionService.signalExecutionById(exeId, &quot;to end&quot;);
+
+ HistoryProcessInstance historyInstance = historyService.createHistoryProcessInstanceQuery()
+          .processInstanceId(pid).uniqueResult();
+ assertEquals(&quot;ended&quot;, historyInstance.getState());
+}
+
+public void tearDown() throws Exception {
+ repositoryService.deleteDeploymentCascade(deploymentId);
+ super.tearDown();
+}
+[/java]
+
+
+1) we used the repositoryService to deploy our process file.
+2) we used the executionService to start the process.
+3) after it starts, it should be at the 'review' task node.
+4) used the taskService to get the specific task, and complete the task.
+5) once it completes, it should be at the 'audit' task, as it is a wait state.
+6) use the executionService.signal method to proceed the process, it goes to the 'end', which means the process should be ended.
+7) use the historyService to check whether the process is ended or not. Please noted that in the jBPM 4.0, the finished process instance was stored in a separate db table, so you can't use the executionService API to look for the finished process instances.</ol>
+The process unit test should be passed with green in Junit, and the console output is like:
+
+Jul 12, 2009 11:08:17 AM org.hibernate.tool.hbm2ddl.SchemaExport execute
+INFO: schema export complete
+--------------------
+Made a request.....
+---------------------
+
+So, that is it, you've already built an process, and verify it. It is simple, isn't it? ;-)
+
+In next entry, I will try to deploy our process into the jBPM server.

@@ -1,0 +1,71 @@
+--- 
+layout: post
+title: Log4j configuration in JBoss AS.
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "7516183523848162786"
+  _searchme: "1"
+  _edit_last: "1"
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+  _syntaxhighlighter_encoded: "1"
+tags: 
+- Java
+- JBoss
+type: post
+status: publish
+---
+Yeah, log4j configuration is easy, but sometimes you might find it is a little bit hard for you to configure it in JBoss AS if you are new to it. So following is the step-by-step example which I was used in <a href="http://jboss.org/soag/">overlord</a> <a href="http://jboss.org/soag/cdl/index.html">cdl</a> project.
+
+open up the jboss-log4j.xml in the $JBossAS/server/domain(ie. default)/conf folder.
+
+1. the jboss-log4j.xml default for
+is "DEBUG", in my case, I want to change it to "INFO" level, since the "DEBUG" level is too verbose.
+[xml]
+&lt;root&gt;
+&lt;value=&quot;INFO&quot;&gt;
+&lt;ref=&quot;CONSOLE&quot;&gt;
+&lt;ref=&quot;FILE&quot;&gt;
+&lt;/root &gt;
+[/xml]
+2. Add your own package log level to DEBUG: like
+[xml]
+&lt;category&gt;
+&lt;name=&quot;org.jboss.soa.overlord&quot;&gt;
+&lt;value=&quot;DEBUG&quot;&gt;
+&lt;/category&gt;
+[/xml]
+3. If you want to show the DEBUG level to the console, you also need to update the 'Threshold' level to 'DEBUG' in CONSOLE appender.
+[xml]
+&lt; name=&quot;Threshold&quot; value=&quot;DEBUG&quot;&gt;
+[/xml]
+Yeah, that's all, quite easy, restart your sever, you would see it take effect. If you want to know more about JBossLog4j, you can refer to <a href="http://docs.jboss.org/jbossas/AllDocsSubscription/JBossLog4j.pdf">this document</a>, which was written by Scott Stark.
+
+[<span style="color: #ff0000;">update Dec 2, 2009</span>] A more convenient way for you to do the debug would be add a 'appender', and then direct ur log into that appender. like following:
+[xml]
+&lt;appender name=&quot;RS&quot; class=&quot;org.jboss.logging.appender.RollingFileAppender&quot;&gt;
+&lt;errorHandler class=&quot;org.jboss.logging.util.OnlyOnceErrorHandler&quot;/&gt;
+&lt;param name=&quot;File&quot; value=&quot;${jboss.server.log.dir}/riftsaw.log&quot;/&gt;
+&lt;param name=&quot;Append&quot; value=&quot;true&quot;/&gt;
+&lt;param name=&quot;MaxFileSize&quot; value=&quot;500KB&quot;/&gt;
+&lt;param name=&quot;MaxBackupIndex&quot; value=&quot;1&quot;/&gt;
+&lt;param name=&quot;Threshold&quot; value=&quot;DEBUG&quot;/&gt;
+
+&lt;layout class=&quot;org.apache.log4j.PatternLayout&quot;&gt;
+&lt;param name=&quot;ConversionPattern&quot; value=&quot;%d %-5p [%c] %m%n&quot;/&gt;
+&lt;/layout&gt;
+&lt;/appender&gt;
+
+&lt;category name=&quot;org.apache.ode&quot;&gt;
+&lt;priority value=&quot;DEBUG&quot; /&gt;
+&lt;appender-ref ref=&quot;RS&quot; /&gt;
+&lt;/category&gt;
+
+&lt;category name=&quot;org.jboss.soa.bpel&quot;&gt;
+&lt;priority value=&quot;DEBUG&quot; /&gt;
+&lt;appender-ref ref=&quot;RS&quot; /&gt;
+&lt;/category&gt;
+[/xml]
+Note: I am validating this against JBossAS4.2.2GA.

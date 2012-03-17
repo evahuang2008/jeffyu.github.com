@@ -1,0 +1,50 @@
+--- 
+layout: post
+title: Create Database and user in Postgres and Mysql.
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "1588944557961115976"
+  _searchme: "1"
+  _edit_last: "1"
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+tags: 
+- Database
+type: post
+status: publish
+---
+Since I worked in SOA area, haven't touched the database for couple years, although in some projects, I need to test against various database (Mysql, Postgres, Oracle etc), but it is very basic stuff, like create database, users etc.
+
+This post basically is a memo for me, I need to work with various DBs from time to time, and think it is best to record it in my blog, instead of looking into the manual again. ;-). Also, you could see this is a follow-up post for my previous <a href="http://jeff.familyyu.net/2008/05/postgresql-installationconnection-in.html">postgres installation blog</a>.
+
+1. <span style="text-decoration: underline;"><strong>Postgres</strong></span>
+
+1) connect Postgres
+<blockquote>psql -h localhost -U postgres&nbsp;</blockquote>
+2) add user
+<blockquote>create user jeff with password 'jeff'&nbsp;</blockquote>
+3) create database
+<blockquote>create database jeffdb&nbsp;</blockquote>
+4) grant db to user
+<blockquote>grant all privileges on database jeffdb to jeff&nbsp;</blockquote>
+Log out with "q" command
+
+Log in jeffdb through user jeff:
+<blockquote>psql -d jeffdb -U jeff&nbsp;</blockquote>
+2. <span style="text-decoration: underline;"><strong>Mysql</strong></span>
+
+1) connect mysql
+<blockquote>mysql -u root -p 'urpassword'&nbsp;</blockquote>
+2) create database
+<blockquote>create database jeffdb&nbsp;</blockquote>
+3) allow user jeff to connect to the server from localhost using the password jeff
+<blockquote>grant usage on *.* to jeff@localhost identified by 'jeff';&nbsp;</blockquote>
+4)grant all privileges on the jeffdb database to this user
+<blockquote>grant all privileges on jeffdb.* to jeff@localhost ;&nbsp;</blockquote>
+Log out and log in through jeff user.
+<blockquote>mysql -u jeff -p'jeff' jeffdb&nbsp;</blockquote>
+[Reference]
+1. <a href="http://www.cyberciti.biz/faq/howto-add-postgresql-user-account/">How to add postgres user and create db</a>
+2. <a href="http://www.debuntu.org/how-to-create-a-mysql-database-and-set-privileges-to-a-user">Create mysql database and set privileges into a user</a>

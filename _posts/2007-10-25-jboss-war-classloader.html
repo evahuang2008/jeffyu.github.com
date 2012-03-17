@@ -1,0 +1,30 @@
+--- 
+layout: post
+title: JBoss war classloader
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "8813707998466381984"
+  _searchme: "1"
+  _edit_last: "1"
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+  _syntaxhighlighter_encoded: "1"
+tags: 
+- Java
+type: post
+status: publish
+---
+(Note: below only has been tested against JBoss4.0.5 and JBoss4.2)
+
+By default, when you deploy a war file to JBoss, it uses the "child-first" and "tomcat" classloader, which is not as same as JBoss's classloader.
+
+If you want to change it to use the JBoss's classloader, Need to update the "jboss-service.xml" in the $JBoss_HOME/server/default/deploy/jbossweb-tomcat55.sar/META-INF folder (for JBoss4.0.5). This file located in the $JBoss_HOME/server/default/deploy/jboss-web.deployer/META-INF folder for JBoss4.2.1.
+
+There are two options in the jboss-service.xml:
+[xml]
+&lt;attribute name=&quot;Java2ClassLoadingCompliance&quot;&gt;false&lt;/attribute&gt;
+&lt;attribute name=&quot;UseJBossWebLoader&quot;&gt;false&lt;/attribute&gt;
+[/xml]
+Above is the value by default.

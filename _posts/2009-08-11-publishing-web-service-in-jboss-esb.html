@@ -1,0 +1,250 @@
+--- 
+layout: post
+title: Publishing web service in JBoss ESB
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "2508964700665936580"
+  _searchme: "1"
+  _edit_last: "1"
+  _efficient_related_posts: a:1:{i:0;a:4:{s:2:"ID";s:3:"239";s:10:"post_title";s:21:"Updates on JBoss ESB.";s:7:"matches";s:1:"1";s:9:"permalink";s:57:"http://jeff.familyyu.net/2009/07/22/updates-on-jboss-esb/";}}
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+  _syntaxhighlighter_encoded: "1"
+  _relation_threshold: "1"
+tags: 
+- ESB
+- Java
+- JBossESB
+- Web Service
+type: post
+status: publish
+---
+As of this writing, <a href="http://www.jboss.org/jbossesb">JBoss ESB 4.6</a> has two ways of publishing web service for ESB service.
+1. Using JSR 181 annotation to do the web service publish and use SOAPProcessor action to connect it in ESB.
+2. Providing the in,out, fault xsd schema to generate the wsdl dynamically and publish the web service.
+These two ways are not exclusive, it is for different usage:
+1. The first one is using JBossWS to publish the annotated Java service, and then using the SOAPProcessor to be a thin wrapper for the existed web service.
+2. The second one, which we called EBWS(Endpoint Web Service), is asking developers to provide the in,out,fault xsd if it is required, And then uses these xsds, plus the service info (like service name, category etc) that were defined in the jboss-esb.xml to generate the wsdl and publish the web service.
+
+The JBoss ESB distribution has both quick start examples for these two scenarios. We will examine them in order shortly, quickstart/webservice_producer sample is using the first approach that we've described, while the quickstart/publish_as_webservice is the EBWS as we said.
+
+<span style="text-decoration: underline;">web service producer using SOAPProcessor</span>
+
+We will examine the first approach, below are the steps that is required to publish a web service in ESB.
+
+1.<strong>Add the impl class with jsr 181 annotation</strong>
+Lets see the GoodbyeWorldWS.java class, this is the class that is supposed to expose as web service.
+
+[java]
+@WebService(name = &quot;GoodbyeWorldWS&quot;, targetNamespace=&quot;http://webservice_producer/goodbyeworld&quot;)
+public class GoodbyeWorldWS {
+@WebMethod
+public String sayGoodbye(@WebParam(name=&quot;message&quot;) String message) {
+
+
+   Message esbMessage = SOAPProcessor.getMessage();
+   if(esbMessage != null) {
+       System.out.println(&quot;**** SOAPRequest perhaps mediated by ESB:n&quot; + esbMessage.getBody().get());
+   }
+   System.out.println(&quot;Web Service Parameter - message=&quot; + message);
+   return &quot;... Ah Goodbye then!!!! - &quot; + message;
+}
+....
+}
+[/java]
+
+
+You can see that we are using the jsr181 annotation to expose it as web service. Noted that we are using the SOAPProcessor class to get the incoming soap message just for demonstration, you don't have to use it in this class's implementation.
+
+&nbsp;
+
+2.<strong>Add web.xml to deploy it in servlet container</strong>
+In the $webservice_producer/war/resources/WEB-INF/web.xml, it looks like
+
+[xml]
+&lt;servlet-name&gt;GoodbyeWorldWS&lt;/servlet-name&gt;
+   &lt;servlet-class&gt;org.jboss.soa.esb.samples.quickstart.webserviceproducer.webservice.GoodbyeWorldWS&lt;/servlet-class&gt;
+&lt;/servlet&gt;
+
+&lt;servlet-mapping&gt;
+   &lt;servlet-name&gt;GoodbyeWorldWS&lt;/servlet-name&gt;
+   &lt;url-pattern&gt;/GoodbyeWorldWS&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+[/xml]
+
+
+Typically, we can build a war file that includes both web.xml and the GoodbyeWorldWS.class, and it should be enough to be published as a web service through JBoss WS. since we are trying to access the web service through our ESB, so we need to define an extra file (jboss-esb.xml) in our case.
+
+&nbsp;
+
+3.<strong>Add SOAPProcessor in the jboss-esb.xml</strong>
+In the jboss-esb.xml service section, we need to use the SOAPProcessor as following:
+
+[xml]
+&lt;action name=&quot;JBossWSAdapter&quot; class=&quot;org.jboss.soa.esb.actions.soap.SOAPProcessor&quot;&gt;
+    &lt;property name=&quot;jbossws-endpoint&quot; value=&quot;GoodbyeWorldWS&quot;/&gt;
+&lt;/action&gt;
+[/xml]
+
+
+Here the "jbossws-endpoint" property should be referred to published web service servlet name.
+*<span style="color: #ff0000;">Tip</span>: There's one optional property "rewrite-endpoint-url" which is not used in this sample. This property is to support load balance on HTTP endpoints.
+
+&nbsp;
+
+4.<strong>pack them in esb and war archive</strong>
+The last step for us it to pack them and then deploy. The war file will include all needed classes and web.xml to publish web service. The esb file will include all needed esb files, like jboss-esb.xml etc. You can bundle the war file into esb archive, which is the way that sample uses.
+
+Until now, we've described all of important steps. Next, we will deploy this esb archive into ESB server, you can see the wsdl file at: http://localhost:8080/contract/ (This is offered by ESB), or you can see the one from http://localhost:8080/jbossws/services, that is offered by JBoss WS.
+
+5.<strong>Add the client to do the test</strong>
+So, we've completed our server side work. In the example, we defined three gateway for this web service, for the simplicity, we will just look at the one uses JBR gateway to do the test in our client. Here is the client code:
+
+[java]
+private void sendMessageToJBRListener(String protocol, int port, String message) throws Throwable {
+   String locatorURI = protocol + &quot;://localhost:&quot; + port;
+   InvokerLocator locator = new InvokerLocator(locatorURI);
+   System.out.println(&quot;Calling JBoss Remoting Listener using locator URI: &quot; + locatorURI);
+
+
+   Client remotingClient = null;
+   try {
+       remotingClient = new Client(locator);
+       remotingClient.connect();
+
+       // Deliver the message to the listener...
+       Object response = remotingClient.invoke(message);
+       System.out.println(&quot;JBR Class: &quot; + response.getClass().getName());
+       System.out.println(&quot;Response from JBoss Remoting Listener '&quot; + locatorURI + &quot;' was '&quot; + response + &quot;'.&quot;);
+   } finally {
+       if(remotingClient != null) {
+           remotingClient.disconnect();
+       }
+   }
+}
+[/java]
+
+
+We are using the following soap message in our client as input.
+
+[xml]
+&lt;soapenv:Envelope xmlns:soapenv=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot; xmlns:good=&quot;http://webservice_producer/goodbyeworld&quot;&gt;
+&lt;soapenv:Header/&gt;
+&lt;soapenv:Body&gt;
+&lt;good:sayGoodbye&gt;
+    &lt;message&amp;gt;Goodbye!!
+ &lt;/good:sayGoodbye&gt;
+&lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;
+[/xml]
+
+
+Run the "ant deploy" to deploy the server into ESB server; Run the 'ant runtest', you would get following result:
+
+[xml]
+saygoodbye_over_http:
+[echo] Invoking a JBossWS Endpoint over HTTP (via JBoss ESB).
+[java] Calling JBoss Remoting Listener using locator URI: http://localhost:8765
+[java] JBR Class: java.lang.String
+[java] Response from JBoss Remoting Listener 'http://localhost:8765' was '&lt;env:Envelope xmlns:env='http://schemas.xmlsoap.org/soap/envelope/'&gt;&lt;env:Header&gt;&lt;/env:Header&gt;&lt;env:Body&gt;&lt;ns2:sayGoodbyeResponse xmlns:ns2=&quot;http://webservice_producer/goodbyeworld&quot;&gt;&lt;return&gt;... Ah Goodbye then!!!! - Goodbye!!&lt;/return&gt;&lt;/ns2:sayGoodbyeResponse&gt;&lt;/env:Body&gt;&lt;/env:Envelope&gt;'.
+[/xml]
+
+
+<span style="text-decoration: underline;">ESB End Point Web Service</span>
+
+&nbsp;
+
+Now, we will see the End Point Web Service, the corresponding example is publish_as_webservice in the JBoss ESB distribution. Lets also see it step by step.
+
+1.<strong>The Web Service server class</strong>
+firstly, take a look at the server impl class.
+
+[java]
+public class ESBWSListenerAction extends AbstractActionLifecycle
+{
+protected ConfigTree _config;
+
+
+public ESBWSListenerAction(ConfigTree config)
+{
+   _config = config;
+}
+
+public Message displayMessage(Message message) throws Exception
+{
+.......
+}
+[/java]
+
+
+Is it just an ordinary ESB action? right, it is. This is totally different from the first one that we saw earlier, we do not have annotation, we used the ESB's Message Object as input/output parameter.
+
+&nbsp;
+
+* <span style="color: #ff0000;">Note</span>: In this approach, you can view it as Dispatch/Provider way that we used to have in JAX-WS, it means you deal with the raw soap message directly, the server doesn't help you do the unmarshall work, this is also a very big difference from the first approach.
+
+2. <strong> define request, response, fault xsd</strong>
+In this example, we just define the in and out xsd. it is as following:
+request.xsd
+
+[xml]
+&lt;xs:schema version=&quot;1.0&quot; targetNamespace=&quot;http://www.jboss.org/sayHi&quot; xmlns:x1=&quot;http://www.jboss.org/sayHi&quot;  xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; elementFormDefault=&quot;qualified&quot;&gt;
+&lt;xs:element name=&quot;sayHi&quot; type=&quot;x1:sayHi&quot;/&gt;
+&lt;xs:complexType name=&quot;sayHi&quot;&gt;
+&lt;xs:sequence&gt;
+ &lt;xs:element name=&quot;arg0&quot; type=&quot;xs:string&quot; minOccurs=&quot;1&quot;/&gt;
+&lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;
+&lt;/xs:schema&gt;
+[/xml]
+
+
+Response.xsd
+
+[xml]
+&lt;xs:schema version=&quot;1.0&quot; targetNamespace=&quot;http://www.jboss.org/sayHi&quot; xmlns:x1=&quot;http://www.jboss.org/sayHi&quot;  xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; elementFormDefault=&quot;qualified&quot;&gt;
+&lt;xs:element name=&quot;sayHiResponse&quot; type=&quot;x1:sayHiResponse&quot;/&gt;
+&lt;xs:complexType name=&quot;sayHiResponse&quot;&gt;
+&lt;xs:sequence&gt;
+ &lt;xs:element name=&quot;arg0&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot;/&gt;
+&lt;/xs:sequence&gt;
+&lt;/xs:complexType&gt;
+&lt;/xs:schema&gt;
+[/xml]
+
+
+We won't show the fault.xsd for the simplicity.
+
+&nbsp;
+
+3.<strong> Add xsd file in the jboss-esb.xml</strong>
+After we've defined the xsd file, we will add it in the jboss-esb.xml like following.
+
+[xml]
+&lt;actions  inXsd=&quot;/request.xsd&quot; outXsd=&quot;/response.xsd&quot; faultXsd=&quot;/fault.xsd&quot;&gt;
+              &lt;action name=&quot;action&quot; class=&quot;org.jboss.soa.esb.samples.quickstart.publishAsWebservice.ESBWSListenerAction&quot; process=&quot;displayMessage&quot;/&gt;
+       &lt;/actions&gt;
+[/xml]
+
+
+*Tip: Here it use the 'service name' + hard code name, like 'Binding' for binding, 'Op' for operation name in the generated wsdl. Refer to ESBServiceEndpointInfo class for its detail.
+
+&nbsp;
+
+4.<strong>build it as an esb artifact and deploy</strong>
+The last step is to build them as an esb archive and deploy it into the ESB server, as same as the first approach, you can see its wsdl file through either http://localhost:8080/contract or http://localhost:8080/jbossws/services.
+
+The client is as same as the first one(apart from the soap message and url), so I won't show it again.
+
+<span style="text-decoration: underline;">Summary</span>
+
+You see two approaches to help you publish web service in JBoss ESB. At first glance, you might think EBWS(second approach here) is simple as you don't need to build the war file etc. But I would say the first approach is more common in the real use case.
+
+[Acknowledgement]
+I'd like to thank my colleague <a href="http://maerqiang.blogspot.com/">Jim Ma</a> for help me explain these two approaches on publishing web service.
+
+[Reference]
+1. <a href="http://www.jboss.org/jbossesb">JBoss ESB website</a>.
+2. <a href="http://www.mastertheboss.com/en/soa-a-esb/137-jboss-esb-webservice-producer.html">JBoss ESB Webservice Producer.</a>

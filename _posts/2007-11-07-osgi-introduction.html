@@ -1,0 +1,19 @@
+--- 
+layout: post
+title: OSGI introduction
+published: true
+meta: 
+  blogger_429d160645182d8e72b48e90f5e50eb3_permalink: "4202961330442508187"
+  _searchme: "1"
+  blogger_author: !binary |
+    SmVmZiBZdSAgICjkvZnmmIwp
+
+  blogger_blog: jeff.familyyu.net
+tags: 
+- Java
+- OSGi
+- Thoughts
+type: post
+status: publish
+---
+Today, I am totally concentrating on the OSGI stuff, firstly, what OSGI tries to resolve or provide.<br />1. Better separation of application logic into modules, with runtime enforcement of module boundaries.<br />2. The ability to deploy multiple versions of a module (or library) concurrently. (Which is a big problem for today's classloader).<br />3. The ability to dynamically discover and use services provided by other modules in the system<br />4. The ability to dynamically install, update and uninstall modules in a running system<br /><br />Like BEA guy in the presentation[Ref 4] said, OSGI is more like a SOA stuff, see the service registry concept, it is very similar to the UDDI... well, since OSGI is still in developing in the JEE world, there are some issues right now. (excerpt from the BEA guy's presentation).<br /><br />1. configuration, dependency ordering. (for example, will start this bundle if others bundles are started).<br />2. security? (I am not familiar with this stuff, but it is saying it is not reflecting on the OSGI, it is on Java itself).<br /><br />....<br /><br />Well, the most exiting thing about the OSGI is, by introducing the OSGI, we will build the micro-kernel system. such as, every system will has its own kernel, and all others related services are built on this, as a bundle(from OSGI spec) form. This is how operating system did. It has a kernel, and other software all are build on this kernel... I would say it would definitely change how we used to build enterprise system.<br /><br /><br />References:<br />1. <a href="http://neilbartlett.name/blog/osgi-articles/">http://neilbartlett.name/blog/osgi-articles/</a><br />2. <a href="http://static.springframework.org/osgi/docs/1.0-m3/reference/html_single/">Spring OSGI Reference Guide</a><br />3. <a href="http://www.parleys.com/display/PARLEYS/OSGi,+the+good+the+bad+the+ugly">BEA OSGI presentation</a><br />4. <a href="http://felix.apache.org/site/presentations.data/best-practices-apachecon-20060628.pdf">OSGI Best Practice</a>

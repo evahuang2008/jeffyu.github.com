@@ -1,0 +1,14 @@
+--- 
+layout: post
+title: A typical test case involved database based app
+published: true
+meta: 
+  spaces_a43755b404d273dfcedbd14ccb4f51ab_permalink: http://cid-04001c604af3f011.users.api.live.net/Users(288261576051650577)/Blogs('4001C604AF3F011!102')/Entries('4001C604AF3F011!243')?authkey=X13wC75MXT0%24
+  _searchme: "1"
+tags: 
+- Java
+type: post
+status: publish
+---
+<div id="msgcns!4001C604AF3F011!243" class="bvMsg"><div>
+<div>Posted by: <a title="view Jakob's recent threads ..." href="http://spaces.msn.com/user/userthreads.tss?user_id=304680"><u><font color="#0000ff">Jakob Jenkov</font></u></a> on September 28, 2005<br /><br /><font color="#ff0000">Hi Jeff, the situation you describe is a typical situation when testing database based applications. Here is what I normally do:<br /><br />public void testDbStuff() throws Exception &#123;<br /><br />   Connection connection = null;<br />   try&#123;<br />      connection = openConnection();<br />      connection.setAutoCommit(false);<br />      //in a method if I need it again in a later test case.<br />      doInsertStuff(); <br /><br />   &#125; finally &#123;<br />      if(connection != null)&#123;<br />         connection.rollback(); //deletes all inserts and updates and deletes etc. done during test.<br />         connection.close();<br />      &#125;<br />   &#125;<br />&#125;<br /><br /><br />Notice how the transaction is rolled back in the finally clause. That way you don't have to worry about what updates you made in the database during the test. It is all deleted and set back, after the test. The nice thing about that is, that if your database contains other test data, for instance for playing around with when testing the UI, these test data will NOT be erased or changed by the test.<br /><br />Sometimes I create the connection and call setAutoCommit(false) in the setUp() method of the test class, and call connection.rollback(); and connection.close(); in the tearDown() method. However, I have experienced that if an exception is thrown from the test method, the tearDown method is not always called. So, usually I use the try-finally method. </font></div></div></div>
