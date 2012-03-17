@@ -1,0 +1,17 @@
+--- 
+layout: post
+title: TDD - 典型的对于DAO数据测试的Test Cases
+
+published: true
+meta: 
+  spaces_a43755b404d273dfcedbd14ccb4f51ab_permalink: http://cid-04001c604af3f011.users.api.live.net/Users(288261576051650577)/Blogs('4001C604AF3F011!102')/Entries('4001C604AF3F011!397')?authkey=X13wC75MXT0%24
+  _searchme: "1"
+tags: 
+- Java
+type: post
+status: publish
+---
+<div id="msgcns!4001C604AF3F011!397" class="bvMsg"><div>早上在TDD maillist中发现到Uncle Bob的一个mail: 特摘录如下:</div>
+<div>  mbrown103 wrote:<br />&gt;  To give a simple example lets say I need to get data <br />&gt; from a database, using an inline sql string due to business rules, and <br />&gt; populate a dataset with it.  Now, I am sure that most of us can write <br />&gt; the code for this in just minutes.  I am just not sure how to approach <br />&gt; this in a TDD fashion.  <br /><br />Test 1:<br />   1. Make sure the database is empty.<br />   2. Call the function that returns the dataset.<br />   3. Make sure the dataset is empty.<br /><br />Test 2:<br />   1. Make sure the database has one row, AND<br />      that the row matches the query.<br />   2. Call your function.<br />   3. Make sure the dataset has one row.<br />   4. Make sure the fields are correct.<br /><br />Test 3:<br />   1. Make sure the database has one row, AND<br />      that the row DOES NOT match the query.<br />   2. Call your function.<br />   3. Ensure the dataset is empty.<br /><br />Test 4:<br />   1. Make sure the database has two rows, AND<br />      that both rows match the query.<br />   2. Call your function.<br />   3. Make sure the dataset has two rows.<br />   4. Make sure the fields are correct.<br /><br />Test 5:<br />   1. Make sure the database has two rows, AND<br />      that only one matches the query.<br />   ...left to the reader as an exercize... </div>
+<div> </div>
+<div>没想到Test Case需要考虑到这么多种情况吧???</div></div>

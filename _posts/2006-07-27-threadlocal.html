@@ -1,0 +1,22 @@
+--- 
+layout: post
+title: 学习ThreadLocal
+
+published: true
+meta: 
+  spaces_a43755b404d273dfcedbd14ccb4f51ab_permalink: http://cid-04001c604af3f011.users.api.live.net/Users(288261576051650577)/Blogs('4001C604AF3F011!102')/Entries('4001C604AF3F011!410')?authkey=X13wC75MXT0%24
+  _searchme: "1"
+tags: 
+- Java
+type: post
+status: publish
+---
+<div id="msgcns!4001C604AF3F011!410" class="bvMsg">ThreadLocal, 我到目前还没正式用过这个东西,因为他更多的是被应用于基础架构的编写,在我理解看来, ThreadLocal就是存放Context的地方,这个地方只能是当前的Thread才能访问,他的生命周期是到这个Thread完毕.<br />文章[1]中的一段说明,我觉得说的很清楚:<br /><br />So what's the difference between a thread-local variable and a normal variable?
+When a thread accesses a thread-local variable it has its own independently
+initialized copy of the variable. Each thread holds an implicit reference to its
+copy as long as the thread is alive. So when the thread goes away, all of its
+thread-local instances are subject to gc.<br />You typically use an anonymous
+inner class to provide an initial value (if any) using an appropriate
+constructor and return the newly constructed object.<br /><br />You can use this <code>ThreadLocal</code> in several situations:<br /><ol><li><strong>To keep state with a thread (user-id, transaction-id,
+logging-id)</strong><li><strong>To cache objects which you need frequently</strong></ol>但是,同时你也要注意Context的cleanup,要不然,他就会变成evil.[2]<br /> <br />今天在TSS链接了一篇关于ThreadLocal的Blog: [3]<br /><br />总之,什么时候用ThreadLocal呢？需要一些Thread-safe的全局变量,但是用他的时候,记得最后清空,要不然会导致memory-leak.
+<br /><br />Update: 最近刚看到Uncle Bob的一篇关于Threadlocal的文章[4]<br /><br />[1]:<a href="http://www.bloggingaboutjava.org/cms/wordpress/2005/12/threadlocal-is-your-friend/)">http://www.bloggingaboutjava.org/cms/wordpress/2005/12/threadlocal-is-your-friend/</a><br />[2]:<a href="http://blog.arendsen.net/index.php/2005/02/16/threadlocals-are-evil/">http://blog.arendsen.net/index.php/2005/02/16/threadlocals-are-evil/</a><br />[3]:<a href="http://crazybob.org/2006/07/hard-core-java-threadlocal.html">http://crazybob.org/2006/07/hard-core-java-threadlocal.html</a><br />[4]:<a href="http://blog.objectmentor.com/articles/2007/09/04/thread-local-a-convenient-abomination">http://blog.objectmentor.com/articles/2007/09/04/thread-local-a-convenient-abomination</a><br /></div>

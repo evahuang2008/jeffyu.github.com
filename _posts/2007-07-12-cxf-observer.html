@@ -1,0 +1,94 @@
+--- 
+layout: post
+title: CXF中的Observer模式应用
+
+published: true
+tags: 
+- Chinese
+- CXF
+- Design Patterns
+- SOA
+- Web Service
+type: post
+status: publish
+---
+<div id="msgcns!4001C604AF3F011!450" class="bvMsg">在CXF当中,其中在Transport这一层接收信息里,采用了Observer的模式,我记得我刚前段时间刚看这段代码的时候,
+老感觉跟Observer模式对不上号...现在,我明白了,原来他是一个简化版的Observer模式.
+先看下典型Observer模式&nbsp;
+<ul>
+	<li><span style="color: #aa0000;"><strong>Subject</strong></span><span style="color: #007733;"><strong> </strong></span>
+<ul>
+	<li>knows its observers. Any number of
+Observer objects may observe a subject</li>
+	<li>provides an interface for attaching and detaching Observer objects.</li>
+</ul>
+</li>
+	<li><span style="color: #aa0000;"><strong>ConcreteSubject</strong></span><span style="color: #007733;"><strong> </strong></span>
+<ul>
+	<li>stores state of interest to
+ConcreteObserver</li>
+	<li>sends a notification to its observers when its state changes</li>
+</ul>
+</li>
+	<li><span style="color: #aa0000;"><strong>Observer</strong></span><span style="color: #007733;"><strong> </strong></span>
+<ul>
+	<li>defines an updating interface for objects that should be notified of changes in a subject.</li>
+</ul>
+</li>
+	<li><span style="color: #aa0000;"><strong>ConcreteObserver</strong></span> <span style="color: #007733;"> </span>
+<ul>
+	<li>maintains a reference to a
+ConcreteSubject object</li>
+	<li>stores state that should stay
+consistent with the subject's</li>
+	<li>implements the Observer updating interface to keep its state consistent
+with the subject's</li>
+</ul>
+</li>
+</ul>
+在对号入座前,先讲讲我们解决的这个问题场景.
+我们要通过Transport这一层来传送Message(消息),我们假设以HTTP传输协议来做例子.
+在CXF当中,有两个概念来对Transport进行了封装.
+1: Conduit 可以理解为信息发送地,发送一条信息需要经过两个步骤:
+1) conduit.prepare(message);
+2) conduit.close(message);
+2: Destination 可以理解为目的地.
+
+接下来,我们来看看是怎么应用Observer模式的.
+
+Observable: (对应的是Subject)
+public interface Observable {
+void setMessageObserver(MessageObserver observer);
+}
+
+MessageObserver: (对应的是Observer)
+public interface MessageObserver {
+void onMessage(Message message);
+}
+
+Conduit/Destination (对应ConcreteSubject)
+ClientImpl/ChainInitiationObserver (对应ConcreteObserver)
+
+可以说,在CXF当中应用的Observer模式有点不一样.
+1) 我们可以从Observable类中看出,他只能注册一个,以往典型的Subject是支持多于Observer注册的.
+2) 我们不能在Subject中看到他调用Observer的方法.实际上呢,他是隐藏于ConcreteSubject类当中.
+这里我们来看一个ConcreteSubject( ServletDestination )
+protected void doMessage(MessageImpl inMessage) throws IOException {
+try {
+setHeaders(inMessage);
+inMessage.setDestination(this);
+incomingObserver.onMessage(inMessage);
+} finally {
+if (LOG.isLoggable(Level.FINE)) {
+LOG.fine("Finished servicing http request on thread: " + Thread.currentThread());
+}
+}
+}
+
+当你读CXF的源代码的时候,你会发现尽管Conduit也支持Observable,但是目前代码出好像还没有具体的应用.
+其实这是一个简单版本的Observer模式,而且并不是一个one-to-many,而是one-to-one的.
+-----------------------
+参考文档:
+<a href="http://www.dofactory.com/Patterns/PatternObserver.aspx">http://www.dofactory.com/Patterns/PatternObserver.aspx</a>
+
+</div>

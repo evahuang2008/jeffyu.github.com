@@ -1,0 +1,14 @@
+--- 
+layout: post
+title: Web Services平台的架构
+
+published: true
+meta: 
+  spaces_a43755b404d273dfcedbd14ccb4f51ab_permalink: http://cid-04001c604af3f011.users.api.live.net/Users(288261576051650577)/Blogs('4001C604AF3F011!102')/Entries('4001C604AF3F011!449')?authkey=X13wC75MXT0%24
+  _searchme: "1"
+tags: 
+- Web Service
+type: post
+status: publish
+---
+<div id="msgcns!4001C604AF3F011!449" class="bvMsg">上一篇,我写了最简单的一个web service的调用过程.这一篇,我主要是参考和翻译&lt;SOA using java web service&gt;一书中的&lt;Web Service Platform Architecture&gt;的这一节,因为我觉得这一节对于整个web service的架构理解是比较重要的.同时也可以是对我上一篇文章的细化.<br /><br />做为任何一个web service开发工具包,象Apache Axis, XFire, Apache CXF等,都会提供以下三个功能模块.<br /><ol><li>Invocation System<br /><li>Serialization System (这里包括了Serialization and deserialization)<br /><li>Deployment System</ol>我们接下来一个一个来看.<br />1. Invocation System<br />这里的调用(Invocation)分为服务器端和客户端的调用,先来看下服务器端的调用过程.<br /><br />Server-Side.<br />1)  通过Transport(HTTP or JMS)获取到SOAP信息.<br />2)  在解析SOAP信息前调用Handlers(比如说处理SOAP信息头的Handler)<br />3)  通过解析SOAP信息,判断出是调用WSDL当中的哪个Operation.<br />4)  根据WSDL当中的Operation,决定该调用后台的那个Java方法(这里假设服务器端的语言也是Java). 一般把这个过程叫做Dispatching.<br />5) 把SOAP信息传递给Serialization系统,把xml里面的参数数据转化成Java对象参数,传给要调用的后台方法.<br />6) 调用后台方法,根据我们传递的参数. 获取方法执行结果(Java Object).<br />7) 把结果传给Serialization系统,把执行结果转成xml.<br />8) 把xml包装成SOAP Message传递给Transport层.让Transport层负责传递给客户端.<br /><br />Client-side<br />1) 客户端传递所要调用的方法,调用方法所需要的参数.把他传递给Serialization系统.<br />2) Serialization系统根据WSDL中所定义的XSD数据类型转成XML.<br />3) 根据所对应的WSDL文件,把XML转成相对应的SOAP信息.<br />4) 调用一些pre-process message的Handlers(比如设置SOAP信息头,或者所保存SOAP信息等).<br />5) 把SOAP信息传递给Transport层,让他传递给所对应的服务端.<br />.......................<br />6) 从Transport层接收到服务端传递回来的SOAP信息.<br />7) 把SOAP信息传递给Serialization系统,把对应的XML转成相对应的Java 对象.<br />8) 根据Java对象,获取到执行完方法后所得到的结果.<br /><br />2. Serialization System<br />1) 从Web service Proxy里获取到Parameters. (也就是要后台执行方法的参数).<br />2) 把所对应的参数对象转成相对应的xsd里面定义的数据类型.<br />3) 根据wsdl里面定义的binding方式,转成相对应的xml.<br />......<br />4) 通过的根据xsd里面的数据,wsdl定义的binding,把xml转成相对应的Java对象.<br /><br />3. Deployment System<br />Deployment System主要完成以下的一些功能:<br />1) 发布wsdl.<br />2) 配置soap Handlers.<br />3) 配置endpoint的Listener监听器.<br />.....<br /></div>
