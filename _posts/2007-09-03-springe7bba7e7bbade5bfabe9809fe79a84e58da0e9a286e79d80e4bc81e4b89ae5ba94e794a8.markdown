@@ -1,0 +1,44 @@
+---
+date: '2007-09-03 16:38:42'
+layout: post
+slug: spring%e7%bb%a7%e7%bb%ad%e5%bf%ab%e9%80%9f%e7%9a%84%e5%8d%a0%e9%a2%86%e7%9d%80%e4%bc%81%e4%b8%9a%e5%ba%94%e7%94%a8
+status: publish
+title: Spring继续快速的占领着企业应用
+wordpress_id: '7'
+categories:
+- Java
+---
+
+
+
+今天晚上听了Rod Johnson的[Spring2.0&Beyond](http://www.infoq.com/presentations/spring-2-rod-johnson)的讲座,让我惊讶的是Spring的东西越来越多了,以前我们看Spring,它是有这些模块的.
+1. Bean的管理. (IOC)
+2. 事务的处理. (AOP)
+3. DAO这一层的抽象.(比如JDBCTemplate, HibernateTemplate).
+4. 还有一些Opensource Integration (比如: quartz)
+当然了,那时候还有spring MVC,但感觉不是那么的流行.
+但是现在回头看spring2.0的时候,我不得不惊讶了. 它现在可以说是准备做成一个One Stop Shop了.
+增加了很多东西.
+1. Spring portfolios, 比如什么LDAPTemplate etc.
+2. Spring web service.
+3. Spring xml DSL.(spring configuration 2.0扩展配置)
+4. Spring OSGI.
+5. Spring Web Flow.
+6. Spring multiple language support.
+......
+可以说,真的是,越来越强大.如Rod所说.(Simplicity and Power).
+
+这里还要说一点的是,multiple language support, 在CXF当中,我们有一个支持动态语言的,比如说groovy,ruby的.我们是可以直接使用spring的这个功能来实现,配置可以是:
+[xml]
+<lang:jruby id="helloworldImpl" <code>script-interfaces="demo.spring.HelloWorld"</code> script-source="classpath:demo/spring/HelloWorldImpl.rb" scope="prototype">
+</lang:jruby>
+  <simple:server id="pojoservice"  address="/HelloWorld">
+      <simple:serviceBean>
+          <ref bean="helloworldImpl" />
+      </simple:serviceBean>
+  </simple:server>
+[/xml]
+我当时回复说,能不能把这个` "script-interfaces`" 去掉. 这显然是不合理的,因为script-interfaces就是Contract. spring支持multiple language support的本意是说隐藏了他的具体实现. 我们把Java的实现分成API 和Implementation,那是因为我们想隐藏Implementation. 但是我们肯定是需要API的,API实际上就是Contract,就是要跟Client打交道或者说是要发布出去的.
+就好比WSDL和具体的语言实现. 问这个问题就相当于说我们能不能发布web-service,不需要WSDL一样. 答案也和WSDL类似,那就是你可以不写wsdl,但是你可能需要在你的Implementation中加以某种方式(比如Annotation),这样让我们来生成WSDL.
+
+

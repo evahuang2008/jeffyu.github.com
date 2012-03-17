@@ -1,0 +1,16 @@
+---
+date: '2005-12-28 02:13:29'
+layout: post
+slug: label
+status: publish
+title: Label...
+wordpress_id: '84'
+categories:
+- Others
+---
+
+
+
+Pack it, Label it, Put it in the memory stack.
+
+

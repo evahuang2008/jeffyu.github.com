@@ -1,0 +1,16 @@
+---
+date: '2006-05-14 14:56:23'
+layout: post
+slug: '%e6%88%91%e7%94%a8-google-reader'
+status: publish
+title: 我用 Google Reader
+wordpress_id: '60'
+categories:
+- Chinese
+- Others
+---
+
+从上周开始,我已经正式开始使用google reader来订阅blogs,本来我是使用Feed Demon的工具来订阅,这个工具也挺好用的,但是存在一个问题,因为我有时候在公司也要看blog,有时候在家里看,那么这就需要两个所订阅的blog 的目录等一样,有时候我在家里看着突然发现个好的,那么在家里加入订阅行列,有时候我就在公司的Feed Demon就没有了,前段时间觉得Google Reader好像不是很好用,最近这周用了下,感觉还不错....
+至少我没发现大问题,对了,我上周把一些老外的比较好的blog的地址统统整理了一遍,现在共享这个label,有兴趣的可以看看..:), Maybe you are also interested in them. [http://www.google.com/reader/view/user/10683915859994493718/label/foregin_tech_blog](http://www.google.com/reader/view/user/10683915859994493718/label/foregin_tech_blog)
+最近我发现google现在在我的印象里不再只是一个搜索引擎工具,而是一个很有创意,具有很好口碑产品的公司,而且总是对他的产品充满期待...
+They are genuine gineus.

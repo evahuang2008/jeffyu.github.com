@@ -1,0 +1,40 @@
+---
+date: '2005-06-08 05:22:52'
+layout: post
+slug: '%e5%85%b3%e4%ba%8ehttp%e4%b8%ad%e7%9a%84session%e5%ae%9e%e7%8e%b0%e6%9c%ba%e5%88%b6'
+status: publish
+title: 关于Http中的Session实现机制
+wordpress_id: '103'
+categories:
+- Java
+---
+
+  因为Http协议是个stateless的.当我们访问服务器的时候发送一个Request,服务器接收到我们的Request后,处理,而后发送一个Response回来.那么发送Response后,我们之前的Request的数据就全部丢失(对于HttpServletRequest,他的有效期--Scope--其实就是Servlet中Service()方法).那么,如果我们想让一些数据在多个Request之中共享,我们就有以下这些方案  
+一:将数据存放在客户端  
+ 1)用HTML Form中的Hidden Field(隐藏域)  
+ 2)把数据保存在cookie当中  
+二:将数据存放在服务端,而客户端只需要用JSESSIONID来关联,其中对JSESSIONID关联的处理有  
+ 1) URL rewrite (URL重写)  
+ 2) Cookie保存JSESSIONID  
+  
+可以说把放在客户端中的实现是个Bad Practice,对于一的1)方式,一是如果共享的数据要是多的话,每次要写那么多的隐藏域很痛苦,二是每次Request和Response都要传送这些数据,三是如果对于敏感的(比如密码)的数据,安全性可以说是很差.对于一中2)的方式,跟1)有类似的问题,就是不需要你去设置隐藏域的值,cookie会帮你做.  
+  
+  因为放在客户端不好,所以我们会把数据放在服务器端,而客户端传递的只是一个JSESSIONID就可以了,那么,在服务端存放的就是HttpSession的对象.这也就是Session对象存在的理由.(i think .:))  
+  
+ 当你发送第一个Request到服务器,因为服务器不知道你是否接受cookie,只能通过第二次的Request才能知道是否接受.(因为Http并没有"握手")所以服务器第一次总是用URL重写来实现的.这是时候他会生成一个jsessionid和新建一个HttpSession对象,存放在服务端,而后如果客户端允许用Cookie,那么就会采用Cookie,默认推荐是用Cookie来实现,如果不能用Cookie的,就采用URL rewriting 来代替.(URL重写一般是在地址后增加一个jsessionid参数,like [http://www.myserver.com/catalog/index.html;jsessionid=1234](http://www.myserver.com/catalog/index.html;jsessionid=1234) )  
+  
+  但是因为很多的服务器都已经有实现好了的Session机制,所以我们只需要直接调用他的API就可以了而不需要去关心他的实现机制.  
+  
+Reference:  
+    《struts in action》中对jsessionid的tip  
+    《servlet specification》  
+    《java servlet programming》  
+    《Core j2ee pattern》   
+Updated, Below are some good links about this topic.
+
+
+
+
+  [http://www.supcode.com/Article/html/4/43/2005/06/29/216335472190.shtml](http://www.supcode.com/Article/html/4/43/2005/06/29/216335472190.shtml)  
+  [http://forum.javaeye.com/viewtopic.php?t=10452&postdays=0&postorder=asc&start=0](http://forum.javaeye.com/viewtopic.php?t=10452&postdays=0&postorder=asc&start=0)    
+

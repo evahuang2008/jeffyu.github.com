@@ -1,0 +1,43 @@
+---
+date: '2005-05-19 05:21:36'
+layout: post
+slug: '%e5%af%b9%e9%87%8d%e6%9e%84%e7%9a%84%e6%80%9d%e8%80%83'
+status: publish
+title: 对重构的思考
+wordpress_id: '137'
+categories:
+- Java
+---
+
+《重构》是一本非常畅销的书,kent beck曾经对于这本书是这么推荐的"get it ,learn it , use it "!  
+可以说，我们每时每刻都在重构,只是有时候是进行重构的步伐问题。  
+  有时候,项目组会特地抽取一段时间来进行大重构,我是比较不赞同这个做法,特别是在靠近DeadLine的时候，因为毕竟你通过重构既不会增加功能，也不会提高速度（除非你重构算法）.他只是会增加代码的优雅和可读性.  
+ 其实，重构应该是每天都做的，但是一般是以小步伐来做的。那么，我们在每天写代码的时候怎么清楚自己需要重构呢？以下是kent beck and martin fowler告诉我们一些需要重构的前兆:(我摘取在这边，也是让自己对需要重构的代码更敏感，更好的理解When to refactor )  
+  
+The outline is :  
+  
+3.1 Duplicated Code（重复的代码）  
+3.2 Long Method（过长函数）  
+3.3 Large Class（过大类）  
+3.4 Long Parameter List（过长参数列）  
+3.5 Divergent Change（发散式变化）  
+3.6 Shotgun Surgery（霰弹式修改）  
+3.7 Feature Envy（依恋情结）  
+3.8 Data Clumps（数据泥团）  
+3.9 Primitive Obsession（基本型别偏执）  
+3.10 Switch Statements（switch惊悚现身）  
+3.11 Parallel Inheritance Hierarchies（平行继承体系）  
+3.12 Lazy Class（冗赘类）  
+3.13 Speculative Generality（夸夸其谈未来性）--也就是太多的继承关系--over desgin  
+3.14 Temporary Field（令人迷惑的暂时值域）  
+3.15 Message Chains（过度耦合的消息链）  
+3.16 Middle Man（中间转手人）  
+3.17 Inappropriate Intimacy（狎昵关系）  
+3.18 Alternative Classes with Different Interfaces（异曲同功的类）  
+3.19 Incomplete Library Class（不完美的程序库类）  
+3.20 Data Class（纯稚的数据类）  
+3.21 Refused Bequest（被拒绝的遗赠）  
+3.22 Comments（过多的注释）  
+  
+  
+-------以上outline摘自:http://www.matrix.org.cn/blog/martin/archives/001115.html#more

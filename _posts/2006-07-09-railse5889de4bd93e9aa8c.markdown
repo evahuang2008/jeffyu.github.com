@@ -1,0 +1,32 @@
+---
+date: '2006-07-09 15:28:34'
+layout: post
+slug: rails%e5%88%9d%e4%bd%93%e9%aa%8c
+status: publish
+title: Rails初体验
+wordpress_id: '49'
+categories:
+- Ruby
+---
+
+ 这个周末用Rails写了个简单的图书管理系统(现在算是差不多完成了主要的功能,但是网页设计等还没做,所以现在的界面很难看)..但是,我想说的是, Ruby On Rails开发速度确实是快,如果你以后是要开发中小型的database-backed程序,Ruby on Rails将是我的首选,等以后慢慢熟悉Ruby,将来自己想要做的,开发的中小项目将都会优先考虑它...
+
+
+
+
+ 现在回想Java做东西,太繁琐了,效率不高...
+
+
+
+
+------------------------------------------------
+
+
+
+
+附上前些天Rails Conference的视频.(推荐!)
+
+
+
+
+[http://blog.scribestudio.com/pages/rails/](http://blog.scribestudio.com/pages/rails/)

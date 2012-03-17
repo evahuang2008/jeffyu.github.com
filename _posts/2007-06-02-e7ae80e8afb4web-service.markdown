@@ -1,0 +1,25 @@
+---
+date: '2007-06-02 16:07:51'
+layout: post
+slug: '%e7%ae%80%e8%af%b4web-service'
+status: publish
+title: 简说Web Service
+wordpress_id: '31'
+categories:
+- Web Service
+---
+
+是时候也该写写web service了,我记得刚来的时候,都在看书,看<<Understanding Web Service>>等,书里面介绍的东西都比较抽象,说实话,那时候看了不少资料,但是还是不大清楚,可能是一下子看了太多的东西,而且没有一个整体的认识所导致的结果.  
+Web service就是Application和Application之间打交道,比如所我用Java的程序,我想调用dotnet的系统...也就是所可以programatically访问你的系统,这样就要解决语言无关的问题.那么,要解决这个问题,xml的技术是最合适不过的,因为xml他是一个self-descriped的语言,而且是个很通用的数据交换标准.  
+要知道Web Service,那么你一定要知道WSDL,SOAP的规范.  
+先说WSDL吧,刚刚说过,我们用xml来作为程序之间数据的交换,那么对于每个应用系统来说,你总得有些contract,什么意思呢?就是说,你要从某个系统获得到某个结果,那么你一定要知道这个你需要传递的参数,你说传递回来的结果等等的. 那么这些东西总得用地方描述啊.这些东西呢,就是要放在WSDL的文件里.   
+WSDL分成两个部分,一个部分是Logical的,也就是我们刚刚上面所说的,还有一个部分叫protocol,里面呢包含了xml数据的绑定方式,比如说SOAP binding的话,他规范了这个xml报文需要什么的格式,比如说有<Header>...</Header>等等的,还有呢也定义了传输方式,你从一个地方要到另外一个地方,你一定要定义一个传输方式,比如有HTTP,SMTP,FTP,JMS等等的..  
+在WSDL Logical部分,里面有分为Types,Message,Operation,Port Type. Types就是定义传输过程中xml的数据类型,比如说参数的数据类型啊,返回的数据类型啊. Message就是an abstract, typed definition of the data being
+        communicated. Port Type呢,就是java语言中的Interface定义了需要几个参数,返回什么结果.  
+  
+其实Web Service的东西很多,有巨多的规范等等,但我现在开始缓过来的是,接下去的我说要打交道的,一般都是跟xml有关系,因为我们传递的是xml数据格式,用的是xsd的数据类型...  
+用Web service做东西,我老感觉有MDA的感觉,比如说,我只要写个WSDL,你可以用CXF,AXIS,XFIRE等工具来生成相对应的Java Code等等....  
+  
+  
+  
+

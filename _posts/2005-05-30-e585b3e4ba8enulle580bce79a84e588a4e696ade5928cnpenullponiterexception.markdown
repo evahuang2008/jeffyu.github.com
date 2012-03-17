@@ -1,0 +1,15 @@
+---
+date: '2005-05-30 02:31:24'
+layout: post
+slug: '%e5%85%b3%e4%ba%8enull%e5%80%bc%e7%9a%84%e5%88%a4%e6%96%ad%e5%92%8cnpenullponiterexception'
+status: publish
+title: 关于null值的判断和NPE(NullPoniterException)
+wordpress_id: '133'
+categories:
+- Java
+---
+
+  早上来的时候,看到这篇文章，是关于说在方法体内对空值的判断([http://jroller.com/page/thuss/20050507#tired_of_checking_for_null](http://jroller.com/page/thuss/20050507#tired_of_checking_for_null))，觉得挺有意思的。我记得在看《 effectvie java 》时，说最好在每个方法里面都对传过来的参数值进行空值等的判断。按理说，最好是该怎么做，但有时候觉得太麻烦了，特别是参数多的时候，很烦。 在那篇文章的评论里，有个人说建立个Check类，然后判断都用这个判断。这是不错，但是好像并没有解决根本问题，因为就算你建立了个Check类，我还是要调用，我还是觉得烦。  
+  这篇blog的作者提出的建议挺有意思，就是说，比如在定义函数的参数的时候这么写：public dealBusiness(required String aString) ,就说增加个required关键字，用来代表说aString不能为null.这个思想其实我觉得很好，因为对空值等的判断这是为了系统的需要才这么做的，我们或许应该交给容器去判断，我们只需要告诉他说不能为空。这样，我们就更能集中我们的注意力去思考我们的业务规则等。不过，这个思想虽然好，但是这么实现感觉会怪怪的。  
+   自从jdk1.5出来后，一个比较新的东西annotation programe 也已经集成在jdk里面了，那么有个读者就说，或许我们可以在annotation里面增加个类似notnull的标志，那么容器就帮我们去判断。我觉得这个建议确实很不错(但是好像annotation还不支持local variable的annotation ??)。  
+  关于这个问题，在sun的网站上，有个对此提出了调查等，讨论挺有意思的，地址是：[http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=5030232](http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=5030232)

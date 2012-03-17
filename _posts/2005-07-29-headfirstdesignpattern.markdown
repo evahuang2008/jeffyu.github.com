@@ -1,0 +1,14 @@
+---
+date: '2005-07-29 10:19:04'
+layout: post
+slug: headfirstdesignpattern
+status: publish
+title: '"Head First Design Pattern" book'
+wordpress_id: '111'
+categories:
+- Java
+---
+
+早几个星期前下载了这本书,前段时间都在写些表示层总结的文章和对Struts and Xwork代码的学习,所以没去看下载来的几本好书. such as "Code complete", "Domain Driven Design", "Head First Design Pattern",. 或许由于这几天连续看代码累的缘故.下午我不想看代码.于是就看了"Head First Desgin Pattern",还真是本好书.书里以情景对话的形式,以及多插图的方式,幽默的写法,让我不知不觉的读完了第1章,而且很自然的应用了Strategy模式.看完第1章你大概会有这样的感觉,我本来也是这么解决这个问题的,原来这种做法叫Strategy啊....
+台湾已经有人在翻译这本书了,内地我好像还没看到.这本书的评价很高.不过现在网络上流传的电子版是扫描版的.(真是辛苦了那个人,同时,看扫描版还真的有点累,不过这本书的内容值得我们这么做.:)
+Hope You Will Like This Book .:) 

@@ -1,0 +1,25 @@
+---
+date: '2005-09-13 16:30:50'
+layout: post
+slug: mysql%e4%b8%ad%e6%96%87%e9%97%ae%e9%a2%98%e7%9a%84%e8%a7%a3%e5%86%b3
+status: publish
+title: Mysql中文问题的解决.
+wordpress_id: '100'
+categories:
+- Chinese
+- Database
+---
+
+
+
+1.创建database的时候，使用gbk编码: create database test default character set gbk collate gbk_chinese_ci;
+
+
+2. 假设我新建的数据库是testdb，那么我连接数据库的url应该为：
+jdbc:mysql://localhost:3306/testdb?useUnicode=true&characterEncoding=gbk
+此时要注意：如果我是把这个url写在JAVA代码中，就直接这样写。但如果是在xml配置文件中（如struts-config.xml,web.xml等），要把其中的&改为&amp;才行，否则会出错。也就是：
+jdbc:mysql://localhost:3306/testdb?useUnicode=true&amp;characterEncoding=gbk;
+
+3.写个EncodingFilter对Response设置charset为GBK,然后在web.xml中进行配置Filter.
+
+

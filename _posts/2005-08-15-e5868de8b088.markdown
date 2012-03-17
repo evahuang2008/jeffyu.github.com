@@ -1,0 +1,271 @@
+---
+date: '2005-08-15 17:11:43'
+layout: post
+slug: '%e5%86%8d%e8%b0%88'
+status: publish
+title: 再谈
+wordpress_id: '107'
+categories:
+- Java
+---
+
+
+
+
+这本书应该是我目前为止读过的最有趣的一本书, 里面是多插图, 言语幽默 , 而且里面还经常采用拟人的手法,比如说Abstract Factory 和 Factory Method 模式之间的对话,当然了,这并不是说讲的深度不够,恰恰相反,他把问题说的非常透彻.
+
+
+
+
+ 这本书和我以前所看过的计算机书籍有很大的不同, 它同时以一个读书笔记又或者说以黑板式的教学方式来说. 其实呢, 我想说的是, 我在看这本书的时候并不是感觉在看书, 而是感觉坐在教室里听课. 真的, 如果我有机会教授Design Pattern的课程, 这本书是我的首选课本!! (感觉我在卖这本书的广告??不妨告诉你个秘密, 我真的没收到这本书的任何小费.)
+
+
+
+
+如果用简单一句话来表达读完这本书的感受,我想说的是,”不知道内地什么时候出这本书的影印版,我好去买”.(买不起原版的人含泪说道.)
+
+
+
+
+下面是以我的理解来说设计模式和理解这本书.
+
+
+
+
+设计模式其实是一个产物,是什么的产物呢? 是运用OO原则解决某个具体问题(Context)的产物. 那么OO原则是什么东西呢? OO原则也是一个产物? 那又是什么的产物呢? 是为了以后能更容易扩展代码,使得软件更容易维护. 大家就是为了更容易达到这个目的而总结出来的一些经验. 
+
+
+
+
+俗话说:”攻城容易,守城难!”, 写个软件容易, 但要长时间的维护这个软件来适应需求等,那就难了.
+
+
+
+
+我们就从OO具有哪些特性(OO Basic) 以及OO的一些原则 (OO Principle),来看设计模式是如何应用OO Basic来实现一些 OO Principle.
+
+
+
+
+## 1.1.         OO Basic
+
+
+
+
+·         Abstraction  
+
+
+
+
+·         Inheritance   
+
+
+
+
+·         Polymorphism
+
+
+
+
+·         Encapsulation
+
+
+
+
+## 1.2.         OO Principle
+
+
+
+
+·         Identify the aspect of your application that vary and separate them from what stays the same.
+
+
+
+
+·         Program to an interface, not an implementation.
+
+
+
+
+·         Favor composition over inheritance.
+
+
+
+
+·         Strive for loosely coupled designs between objects that interact.
+
+
+
+
+·         Classes should be open for extension but closed for modification.
+
+
+
+
+·         Depend on Abstraction. Do not depend on concrete classes.
+
+
+
+
+·         Principle of Least knowledge – talk only to your immediate friends.
+
+
+
+
+·         Don’t call us, we will call you.
+
+
+
+
+·         A class should have one reason to change.
+
+
+
+
+ 
+
+
+
+
+## 1.3.         Design Patterns
+
+
+
+
+### _1.3.1._                  _Strategy Pattern_
+
+
+
+
+Defines a family of algorithms, encapsulates each one, and make them interchangeable. Strategy lets the algorithm vary independently from client that uses it.
+
+
+
+
+### _1.3.2._                  _Observer_
+
+
+
+
+Defines a one-to-many dependency between objects so that when object change state, all its dependents are notified and updated automatically.
+
+
+
+
+### _1.3.3._                  _Decorator_
+
+
+
+
+Attach additional responsibilities to an object dynamically. Decorators provide a flexible alternative to subclassing for extending functionality.
+
+
+
+
+### _1.3.4._                  _Abstract Factory_
+
+
+
+
+Provide an interface for creating families of related or dependent objects without specifying their concrete classes.
+
+
+
+
+### _1.3.5._                  _Factory Method_
+
+
+
+
+Define an interface for creating an object, but let subclass decide which class to instantiate. Factory Method let a class defer instantiation to the subclass.
+
+
+
+
+### _1.3.6._                  _Singleton_
+
+
+
+
+Ensure a class only has one instance and provide a global point of access to it.
+
+
+
+
+### _1.3.7._                  _Command_
+
+
+
+
+Encapsulates a request as an object, thereby letting you parameterize clients with different requests, queue or log requests, and support undoable operations.
+
+
+
+
+### _1.3.8._                  _Adapter_
+
+
+
+
+Converts the interface of a class into another interface the client expects. Adapter lets classes work together that couldn’t otherwise because of incompatible interfaces.
+
+
+
+
+### _1.3.9._                  _Facade_
+
+
+
+
+Provides a unified interface to a set of interface in a subsystem. Façade defines a higher-level interface that makes the subsystem easier to use.
+
+
+
+
+### _1.3.10._              _Template Method_
+
+
+
+
+Define the skeleton of an algorithm in an operation deferring some steps to subclasses. Template Method lets subclasses redefine certain steps of an algorithm without changing the algorithm’s structure.
+
+
+
+
+### _1.3.11._              _Iterator_
+
+
+
+
+Provide a way to access the elements of an aggregate object sequentially without exposing its underlying representation.
+
+
+
+
+### _1.3.12._              _Composite_
+
+
+
+
+Compose objects into tree structures to represent part-whole hierarchies. Composite lets clients treat individual objects and composition of objects uniformly.
+
+
+
+
+### _1.3.13._              _State_
+
+
+
+
+Allow an object to alter its behavior when its internal state changes. The object will appear to change its class.
+
+
+
+
+### _1.3.14._              _Proxy_
+
+
+
+
+Provide a surrogate or placeholder for another object to control access to it.         
+
