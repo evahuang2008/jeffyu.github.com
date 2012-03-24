@@ -1,10 +1,8 @@
 ---
-date: '2011-04-01 09:22:32'
 layout: page
 slug: about
 status: publish
 title: About
-wordpress_id: '314'
 ---
 
 [![](http://jeff.familyyu.net/wp-content/uploads/2011/01/jeff_new.png)](http://jeffyuchang.files.wordpress.com/2011/01/jeff.png)

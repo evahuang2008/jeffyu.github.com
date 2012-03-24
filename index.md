@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Latest entries
+title: Latest Entries 
 tagline: Supporting tagline
 ---
 {% for post in site.posts limit: 6 %}
