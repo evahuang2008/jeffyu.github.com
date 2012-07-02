@@ -26,7 +26,7 @@ public class DataSourceConnectionProvider implements ConnectionProvider, Configu
   public DataSourceConnectionProvider() {
   }
 
-  @SuppressWarnings( {&quot;unchecked&quot;})
+  @SuppressWarnings( {"unchecked"})
   public void configure(Map properties) {
 	 _props = new Properties();
 	 _props.putAll(properties);
@@ -72,7 +72,7 @@ public class DataSourceConnectionProvider implements ConnectionProvider, Configu
 
 For the TransactionManagerLookup interface, you would get WARN  saying this API has been deprecated ( I believe it has been deprecated before 4.x, but I didn't get a chance to upgrade it until now), we should implement the **org.hibernate.service.jta.platform.spi.JtaPlatform** SPI instead, and set it to the 'hibernate.transaction.jta.platform' property. Instead of having a class that implement the JtaPlatform SPI directly, I've subclassed it from the  [AbstractJtaPlatform](http://grepcode.com/file/repo1.maven.org/maven2/org.hibernate/hibernate-core/4.0.0.Beta5/org/hibernate/service/jta/platform/internal/AbstractJtaPlatform.java#AbstractJtaPlatform) class, so that I've only needed to override two interfaces. Below is the code snippet for my custom JtaPlatform impl.
 
-{% highlight Java %}
+{% highlight java %}
 /**
  *
  * uses {@link HibernateUtil} to obtain the JTA {@link TransactionManager} object.
